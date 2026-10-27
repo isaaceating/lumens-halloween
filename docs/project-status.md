@@ -111,3 +111,9 @@
 Local main，路徑 D:/Codex-Projects/lumens-halloween，基底 edc53f5，無 worktree。Blaze 已確認；Functions API、Storage 與保密規則部署成功，部署映像清理策略已補設 7 天。正式資格快照已匯入，0 票、等待開始、三位未發布。Pages 已啟用，待本次提交後觸發發布與線上驗證。
 
 新增身份帶入與最多三張相簿；12 項測試、語法、build 通過；隔離瀏覽器完成三張上傳／保存／相簿切換／測試身份帶入／成功投票。雲端登入、名單匯入、單筆身份比對、跨網域、照片上傳下載及公開資料保密已驗證。沒有在正式活動投測試票；Firestore 大量同時投票尚未負載測試。
+
+## 正式上線驗證完成（2026-10-27，最新現況）
+
+正式網址：https://isaaceating.github.io/lumens-halloween/ ；後台：admin.html。發布程式版本 752b7c1，GitHub Pages run 40480067770 與 Validate run 40480049154 均 success。正式瀏覽器首頁取得雲端活動狀態、後台登入成功，預定 10/30 15:00、30 分鐘、0 票、三位未發布；瀏覽器 error log 為空。後台 390px viewport 檢查無橫向溢位。
+
+保留限制：尚無正式參賽照片及名稱；完整投票在隔離本機以虛構身份驗證，雲端採非破壞性驗證，未做大量同時投票負載測試。使用者可於後台補資料。工作仍在 D 槽 Local main，無額外 worktree。
