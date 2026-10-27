@@ -7,7 +7,7 @@ const config=JSON.parse(fs.readFileSync(configPath,'utf8')),state=C.initial(),im
 if(fs.existsSync(importPath))state.employees=[...new Set(JSON.parse(fs.readFileSync(importPath,'utf8')).map(x=>C.keyFor(config.secret,'employee',C.employeeId(x))))];
 const store=new LocalStore(path.join(privateDir,'state.json'),{[C.EVENT]:state});
 const api=createApi({store,secret:config.secret,passwordHash:config.passwordHash,savePhoto:async(bytes,ext)=>{const name=`${crypto.randomUUID()}.${ext}`;fs.writeFileSync(path.join(privateDir,'media',name),bytes);return `/media/${name}`;}});
-const staticFiles=new Set(['index.html','admin.html','styles.css','magic.css','haunted.css','painted.css','live.css','admin.css','app.js','magic.js','haunted.js','painted.js','site-config.js','live.js','admin.js']);
+const staticFiles=new Set(['hero.css','hero.js','awakening.js','index.html','admin.html','styles.css','magic.css','haunted.css','painted.css','live.css','admin.css','app.js','magic.js','haunted.js','painted.js','site-config.js','live.js','admin.js']);
 const assetNames=new Set(fs.readdirSync(path.join(root,'assets')).filter(x=>/^[a-z0-9-]+\.png$/.test(x)));
 http.createServer(async(req,res)=>{
  res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Cache-Control','no-store');

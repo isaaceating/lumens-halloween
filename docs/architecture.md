@@ -93,3 +93,21 @@ Functions API 已部署 asia-east1；Storage bucket 同區；Pages 使用已確�
 ## v1.10 名單匯入（2026-10-27）
 
 functions/employees.cjs 處理交易內新增／更新與取代。POST /admin/employees 的 mode 預設 merge，replace 需要確認旗標與精確 revision。合併讀取最新交易快照，避免並行新增互相覆蓋；更新只影響提供的身份欄位，回應 importSummary 不含工號及姓名。apiVersion 回傳套件版本 1.10.0；介面與 Git tag 顯示 v1.10。
+
+## v1.11 Hero 整合層（2026-10-28，本機預覽）
+
+hero.css / hero.js 在原插畫動畫層之後載入。角色互動使用 SVG 取圖範圍內的透明命中矩形，避免 sprite atlas 原圖邊界影響對話定位；幽靈直接使用透明獨立素材。對話內容以 textContent 寫入。背景與舞台仍共用 1536×1024 座標，招牌依新底圖重新定位。原圖保留，新增 lumens-castle-v5.png 與 friendly-ghost-v5.png。沒有改動後端 API 或正式投票資料。
+
+2026-10-28 第二輪：新增 awakening.js，共用 requestAnimationFrame 時鐘驅動 12 秒演出；不覆寫原有角色 CSS transform，使用內層 SVG 群組疊加動作，飛行使用 updatePlaybackRate 保持路徑連續。動畫暫停或頁籤隱藏時凍結進度；結束清除所有演出狀態並恢復按鈕。燈光位置沿用場景座標。新背景 assets/lumens-castle-v6.png，原素材保留。
+
+2026-10-28 魔女施法版：awakening.js 改成 15 秒、雙階段光球軌跡與專屬可見飛行路徑，結束將原巡航動畫時間對齊至 3.2 秒接回。front 姿態以透明 PNG 交叉淡化；南瓜噴發為共用 PNG 的 30 個 SVG image，依時間計算拋物線與旋轉，沒有圓環。castle-awake 與 --cat-form 保存本頁甦醒狀態，重播重設、重新整理清除。燈光與南瓜圖層置於魔女後方避免遮臉。新增 assets/witch-casting-front.png、assets/evil-pumpkin-lantern.png，原素材保留。靜態建置與本機預覽白名單已涵蓋新素材。
+
+2026-10-28 木牌版：木牌使用 CSS 木紋漸層、破邊裁切與繩索，文字使用 Google Fonts Butcherman（Georgia 備援）。移除 header 與篩選元素時同步移除 app.js、live.js、haunted.js、hero.js 對其依賴；後台改由 Footer 原始 Logo 連結。hero.css 以 castle-awake 分隔幽靈光暈與角色動作；未改動身份驗證及投票 API。
+
+2026-10-28 抓痕銘牌版：assets/castle-title-scratched.png 為標題插畫，實際 h1 使用 sr-only 保留語意，移除 Butcherman 外部字型載入。assets/ghost-dormant.png 與原幽靈成對疊放，用 castle-awake 控制淡化，命中區保留在上層 sprite。新增素材由既有 PNG 白名單建置；預覽白名單同步新增。
+
+2026-10-28 Eater 與回復演出：無字 assets/castle-title-blank.png 搭配真實 HTML h1／Google Fonts Eater、Noto Serif TC。蝙蝠為獨立 SVG 翼部動畫，銘牌容器負責整組漂移。awakening.js 將 20 秒實際時間映射既有角色演出階段，光球獨立採 3+1+3 秒；--wake-level 控制幽靈兩素材交叉淡化、角色光暈與招牌亮度，--cat-form 在收尾降為 0。finish 移除 castle-awake、清空全部演出燈光；暫停／隱藏頁面仍凍結演出，減少動態只顯示對話。
+
+2026-10-28 節奏微調：awakening.js 增加獨立 flightTime，僅加倍 7 秒後的接近路徑時間，到中央塔後夾止至原回程 cue；其他效果沿用原時鐘。hero.css 的 invitation-breathe 僅套用非 hover/focus/disabled 狀態，避免覆寫既有 hover 樣式。
+
+2026-10-28 最終版：前後兩次手心集氣共用 14 顆 SVG 粒子及光球，後段手掌以 witch 的畫面座標矩陣定位；光球以曲線送到塔尖，回程、噴發和收尾各用獨立時間。finish 同步清除粒子、光球縮放與演出狀態。前端 v1.11.0 與 API v1.10.0 分開記錄，本次沒有後端程式變更或 Firebase 部署。

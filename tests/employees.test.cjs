@@ -60,11 +60,11 @@ test('imports require admin and cannot change a started event',async()=>{
   await assert.rejects(send({ids:['003']}));
   assert.equal((await store.get(C.EVENT)).employees.length,2);
 });
-test('v1.10 release versions match frontend, backend and package lock',()=>{
+test('v1.11 frontend version and unchanged v1.10 API version are explicit',()=>{
   const fs=require('node:fs');
-  assert.equal(require('../package.json').version,'1.10.0');
+  assert.equal(require('../package.json').version,'1.11.0');
   assert.equal(require('../functions/package.json').version,'1.10.0');
   assert.equal(require('../functions/package-lock.json').packages[''].version,'1.10.0');
-  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.10"/);
+  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.11"/);
   assert.equal(C.publicView(C.initial(),1000).apiVersion,'1.10.0');
 });

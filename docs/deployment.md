@@ -40,3 +40,6 @@
 ## v1.10 版本與名單操作
 
 使用 Git tag v1.10 對應 npm/API 1.10.0；Pages 環境僅允許 main；發布前確認 main 與該 tag 相同，再從 main 發布。預設「新增／更新」可只匯入新增同仁；提供身份物件可更新姓名部門，只有工號不清空既有身份。若確定要移除檔案以外同仁才選「整份取代」，核對提醒後確認。部署只更新程式，不重匯或取代正式名單。
+
+## v1.11 發布（2026-10-28）
+本次為前端視覺更新，套件／site-config／Git tag 為 1.11.0／v1.11；API 仍為 1.10.0。僅從 main 手動觸發 Publish GitHub Pages，不部署 Firebase、不重匯名單。Footer 顯示主辦文字，前端版本可由後台標題與 site-config 辨識。發布結果以 project-status.md 為準。

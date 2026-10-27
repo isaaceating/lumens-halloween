@@ -127,3 +127,45 @@ Local main，路徑 D:/Codex-Projects/lumens-halloween，基底 edc53f5，無 wo
 發布程式提交 1c27e4040267b2028570ebd76e67859199a47f6d，固定 tag v1.10，Release：https://github.com/isaaceating/lumens-halloween/releases/tag/v1.10 。Functions 部署成功，正式 API 回讀 apiVersion=1.10.0；未確認取代請求回傳 400，revision 與名單數未變。Pages run 40533825514 成功，headSha 與 tag 相同。
 
 直接從 tag 的首次 Pages run 40533628996 被既有 main-only 環境保護拒絕；未修改保護規則，改從相同提交的 main 部署成功。正式瀏覽器登入、v1.10 標示、預設新增／更新及完整名單均已核對。沒有重匯正式名單或送出測試票。18 項測試與隔離瀏覽器流程已通過。後續文件提交不變更此發布 tag 或已部署程式。
+
+## v1.11 本機視覺預覽（2026-10-28）
+
+路徑 D:\Codex-Projects\lumens-halloween，Local main，基底 0e61404。本輪未 commit、push、tag 或部署。正式站維持 v1.10。需求見 F008。
+
+完成：新增完整古堡與可愛幽靈素材、Hero 角色互動、首屏比例、導覽移位、跑馬燈連續循環。hero.js/hero.css 為本輪整合層；移除 magic.js 舊小怪區依賴及 live.js 頂列依賴。
+
+驗證：npm run check、18 項 Node 測試、npm run build 通過；瀏覽器桌面 1280×720、iframe 390×844 與 375×667 視覺檢查；角色鍵盤對話、暫停按鈕及無 console error 已檢查。窄螢幕為瀏覽器模擬，尚未實機手機驗證。
+
+預覽 http://127.0.0.1:4173/?demo=1 ，使用示意角色與模擬投票。待使用者確認視覺，之後再統一版本資訊、提交、部署與正式驗證。
+
+### 2026-10-28 第二輪預覽
+
+已完成乾淨夜空、角色右移、黑貓最小再減半與延後換形、12 秒喚醒演出。維持 Local main / 基底 0e61404，沿用未提交 v1.11 工作，未推送與部署。新版伺服器：http://127.0.0.1:4176/?demo=1 。
+
+驗證：語法檢查、18 項既有測試、靜態建置通過；瀏覽器 1280×720 與 390×844 構圖、演出開始禁用重複點擊、暫停進度固定在 5816ms、恢復與完成按鈕重置、console 無錯誤。實機手機與系統 reduced-motion 尚未實際驗證。等待使用者本機視覺確認，正式站仍維持 v1.10。
+
+2026-10-28 第三輪：依使用者「效果太小」回饋放大甦醒演出。新增 SVG 光柱、地面光環、42 顆星芒，強化角色幅度與整體場景亮度，仍沿用單一 12 秒時鐘及原有暫停、清理機制。npm run check、npm run build 通過；桌面瀏覽器實測啟動、暫停／恢復與放大亮燈畫面，console 無錯誤。本輪僅視覺變更，未重跑後端測試；未 commit/push/deploy。預覽仍為 http://127.0.0.1:4176/?demo=1 。
+
+### 2026-10-28 魔女施法整合版驗收
+
+Local main / 0e61404，沿用本輪未提交變更。已完成 15 秒劇情、正面魔女素材、邪惡南瓜燈噴發、持續角色動作與甦醒後保留狀態。本機預覽更新為 http://127.0.0.1:4177/?demo=1 。未 commit、push 或部署，正式站仍為 v1.10。
+
+驗證：npm run check、18 項測試、npm run build 通過。瀏覽器 1280×720 與 390×844 預覽；約 10.8 秒暫停可見正面魔女與南瓜噴發；恢復後 running=false、awake=true、貓瘦長 opacity=1、招牌 warm-sign-breathe、按鈕可重播。手機重播驗證貓回到初始、魔女在左端且 opacity=1。console 無錯誤。尚未實機手機或系統減少動態模式驗證。截圖存 outputs/v1.11-witch-pumpkins.png（忽略於 Git）。
+
+### 2026-10-28 木牌與比賽文案版驗收
+Local main / 0e61404，沿用既有未提交變更。完成 Butcherman 骨白木牌、比賽文案、露娜命名、三位卡片與取消分類／導覽、Footer 原 Logo 後台入口、幽靈喚醒前不發光、平日角色小動作與加亮招牌。本機預覽改為 http://127.0.0.1:4178/?demo=1 （4177 無法正常連線）。未 commit/push/deploy，正式版保持 v1.10。
+驗證：npm run check、18 項既有測試、npm run build 通過。瀏覽器桌面與 390×844 手機構圖檢查、Butcherman 載入、三隻幽靈未喚醒 filter=none、喚醒後持續光暈、動作週期切換、演出結束按鈕恢復可用、Footer 點擊進入登入頁、正常模式活動與三位卡片載入通過；console 無錯誤。沒有輸入主辦密碼或送出正式投票。實機手機與 reduced-motion 本輪未驗證。
+
+### 2026-10-28 抓痕銘牌與休眠素材版驗收
+Local main / 0e61404，未提交 v1.11 變更持續保留；未 commit/push/deploy。新預覽 http://127.0.0.1:4179/?demo=1 ，使用新啟動伺服器載入新增素材白名單。完成七項修訂：尖銳抓痕插畫字銘牌、無繩索、寬螢幕文案右移、右側門牌喚醒按鈕、角色更慢更小、幽靈休眠素材、甦醒角色光暈。
+驗證：npm run check、18 項測試、npm run build 通過。瀏覽器 1440×900 確認文案左邊界約 143px；390×844 手機按鈕無溢出、素材可見；休眠時三張發光幽靈 opacity=0，動作週期 7.8s/9.6s；演出結束發光素材 opacity=1，南瓜與骷髏光暈存在且按鈕恢復可用。console 無錯誤。截圖 outputs/v1.11-scratched-plaque.png。實機手機與 reduced-motion 本輪未實測。
+
+### 2026-10-28 Eater、蝙蝠銘牌與 20 秒回復版
+Local main / 0e61404，保留既有未提交 v1.11 工作，未 commit/push/deploy。預覽 http://127.0.0.1:4180/?demo=1 。完成 Eater＋思源宋體、蝙蝠攜牌動畫、加亮 20 秒演出與收尾還原。
+驗證：npm run check、18 項測試、npm run build 通過。1440×900／390×844 瀏覽器檢查字型、構圖與按鈕；字型載入檢查 Eater / Noto Serif TC 通過。演出約 4937ms 暫停時光球仍可見且未亮燈，9470ms 已亮燈；恢復並結束後 awake=false、running=false、cat=0、三隻發光素材 opacity=0、南瓜／骷髏週期回到 7.8s／9.6s、按鈕可再次操作。暫停時銘牌 animationPlayState=paused。console 無錯誤。截圖 outputs/v1.11-eater-awakening.png。本輪未實機手機與系統 reduced-motion 測試。
+
+2026-10-28 按鈕呼吸／Luna 加速：Local main / 0e61404，未 commit/push/deploy；預覽沿用 http://127.0.0.1:4180/?demo=1 。npm run check、npm run build 通過。瀏覽器確認呼吸為 1s、演出中 animation=none；11103ms 時 Luna 已在 x1050 中央塔且正面 opacity=1；完成後 awake=false、按鈕可用且 invitation-breathe 恢復，console 無錯誤。本輪僅動畫修改，未重跑後端測試。截圖 outputs/v1.11-luna-fast-arrival.png。
+
+### 2026-10-28 v1.11 發布準備
+來源：使用者授權測試後提交、推送、部署。Local main / 基底 0e61404；本輪全部 v1.11 視覺調整納入發布。Footer 更新為「2026 捷揚福委會 Presented」。18 秒演出加入前後共用的手心集氣，12.5 秒送光完成後回程／噴發，18 秒還原。
+驗證：npm run check、18 項測試、npm run build 通過。瀏覽器約 10967ms 有 14 顆集氣粒子及手掌光球；13689ms 正面已淡出且 24 顆南瓜可見；完成 ready=true、awake=false、集氣粒子全隱藏，console 無錯誤。本次前端 1.11.0，API 保持 1.10.0；不寫入正式投票或名單。正式部署待 GitHub Actions 完成後補驗證紀錄。
