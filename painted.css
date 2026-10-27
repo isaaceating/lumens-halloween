@@ -1,0 +1,66 @@
+/* Keep the full 3:2 environment and its occupants on one uncropped stage. */
+.hero{min-height:max(720px,calc(54.667vw + 80px));padding-top:100px;padding-bottom:100px;overflow:hidden}
+.castle-scene{inset:auto!important;top:38px!important;right:1%!important;width:82%;height:auto!important;aspect-ratio:3/2;transform:translate(calc(var(--mx)*-5px),calc(var(--my)*-4px + var(--hero-travel)*.025));transition:transform .2s;mask-image:none!important}
+.castle-art{object-fit:contain!important;object-position:center!important;mask-image:none;filter:saturate(.78)}
+.hero:before{background:linear-gradient(90deg,#15121e 0%,#15121ee8 16%,#15121e80 31%,transparent 48%)}
+.hero-copy{max-width:440px;transform:translateY(calc(var(--hero-travel)*-.06))}.hero h1{font-size:clamp(76px,7.7vw,118px)}
+.inhabitants{overflow:visible}.inhabitants>svg{overflow:visible}.painted-sprite{overflow:hidden;filter:none!important;animation:none!important}.painted-cat{filter:drop-shadow(0 5px 7px #100b19aa)}
+.cat-awake{animation:painted-eyes-open 8.9s steps(1,end) infinite!important}.cat-asleep{animation:painted-eyes-closed 8.9s steps(1,end) infinite!important}
+.painted-pumpkin{transform-origin:580px 940px;animation:painted-breathe 7s ease-in-out infinite;filter:drop-shadow(0 4px 6px #0c081899)}
+.painted-skeleton{transform-origin:1190px 945px;animation:painted-sway 9s ease-in-out infinite;filter:drop-shadow(0 4px 6px #0c081899)}
+.spirit{filter:drop-shadow(0 0 9px #aebbb533);opacity:.7}.familiar svg svg{animation:none;filter:none}.familiar svg{overflow:visible}.familiar:hover svg{filter:drop-shadow(0 0 14px #b7856b55)}
+.neon-sign{opacity:.055;animation:broken-circuit 6s steps(1,end) infinite;filter:url(#sign-glow)}
+.castle-caption{bottom:3%;right:3%;background:#17121e99;font-size:6px}.hero-bottom{bottom:30px}
+@keyframes painted-eyes-open{0%,35%,39%,72%,76%,100%{opacity:1}36%,73%{opacity:0}}
+@keyframes painted-eyes-closed{0%,35%,39%,72%,76%,100%{opacity:0}36%,73%{opacity:1}}
+@keyframes painted-breathe{50%{transform:scale(1.015,1.025)}}
+@keyframes painted-sway{50%{transform:rotate(2deg)}}
+/* 6s phrase: rapid faulty-power chatter, two separate flashes, more chatter, dark rest. */
+@keyframes broken-circuit{
+  0%,3%,6.5%,10%,14%,18%,29%,43%,55.5%,59%,63.5%,67%,71%,100%{opacity:.055}
+  1.5%{opacity:.95} 5%{opacity:.45} 8%{opacity:1} 12.5%{opacity:.65} 16%{opacity:.9}
+  25%{opacity:1} 39%{opacity:.95}
+  54%{opacity:.75} 57%{opacity:1} 61.5%{opacity:.5} 65.5%{opacity:1} 69%{opacity:.8}
+}
+@media(min-width:1500px){.hero{min-height:980px}.castle-scene{width:80%;max-width:1350px}}
+@media(min-width:651px) and (max-width:1000px){.hero{padding-top:55px;min-height:740px}.castle-scene{top:90px!important;width:94%;right:0!important}.hero-copy{max-width:370px}.hero h1{font-size:78px}}
+@media(max-width:650px){.hero{padding:45px 7% 0;min-height:calc(570px + 66.667vw);overflow:hidden}.hero-copy{max-width:none}.hero h1{font-size:82px}.castle-scene{top:510px!important;left:0!important;right:0!important;width:100%;transform:none!important}.hero:before{background:linear-gradient(180deg,#15121e 0%,#15121e 48%,transparent 64%)}.hero-bottom{bottom:14px}.castle-caption{font-size:4px;padding:5px}.hero .primary{gap:10px}.spell-button{margin-left:10px}}
+.motion-off .cat-awake{animation-play-state:paused!important}.motion-off .cat-asleep{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.cat-awake{animation:none!important;opacity:1}.cat-asleep{animation:none!important;opacity:0}.neon-sign{animation:none!important;opacity:.55}.painted-pumpkin,.painted-skeleton{animation:none!important}}
+
+/* High moonlit pass: fixed facing, gentle arc, hidden reset behind towers. */
+.witch-flight{animation:moonlit-pass 16s linear infinite}
+.witch-heading{animation:witch-return-facing 16s steps(1,end) infinite}
+.painted-pumpkin{transform-origin:590px 965px;filter:drop-shadow(0 0 7px #c77d3544) drop-shadow(0 6px 6px #08060c)}
+.painted-skeleton{transform-origin:1090px 970px;filter:drop-shadow(0 0 5px #d7bd8b55) drop-shadow(0 6px 6px #08060c)}
+.castle-cat-morph{transform-origin:122.5px 245px;animation:cat-transformation 15s ease-in-out infinite}
+.castle-cat-morph .painted-cat{filter:drop-shadow(0 3px 5px #100b19aa)}
+.ominous-eyes{opacity:0;filter:drop-shadow(0 0 5px #ff641a);animation:cat-menace 15s ease-in-out infinite}
+.castle-cat-morph .cat-awake{animation:castle-eyes-open 15s steps(1,end) infinite!important}
+.castle-cat-morph .cat-asleep{animation:castle-eyes-closed 15s steps(1,end) infinite!important}
+@keyframes castle-eyes-open{0%,12%,94%,100%{opacity:1}10%,92%{opacity:0}}
+@keyframes castle-eyes-closed{0%,12%,94%,100%{opacity:0}10%,92%{opacity:1}}
+@keyframes moonlit-pass{
+  0%{transform:translate(360px,260px) scale(1.35) rotate(-3deg);opacity:0}
+  5%{transform:translate(440px,240px) scale(1.35) rotate(-3deg);opacity:1}
+  20%{transform:translate(800px,185px) scale(1.3);opacity:1}
+  35%{transform:translate(1210px,205px) scale(1.25) rotate(2deg);opacity:1}
+  43%,50%{transform:translate(1320px,230px) scale(1.23);opacity:0}
+  57%{transform:translate(1200px,210px) scale(1.25) rotate(-2deg);opacity:1}
+  75%{transform:translate(800px,180px) scale(1.3);opacity:1}
+  90%{transform:translate(440px,240px) scale(1.35) rotate(3deg);opacity:1}
+  96%,100%{transform:translate(360px,260px) scale(1.35);opacity:0}
+}
+@keyframes witch-return-facing{0%,100%{transform:scaleX(1)}50%{transform:scaleX(-1)}}
+@keyframes cat-transformation{0%,20%,100%{transform:scale(.38)}48%,68%{transform:scale(.525)}85%{transform:scale(.43)}}
+@keyframes cat-shadow{0%,20%,100%{filter:brightness(1.08)}48%,68%{filter:brightness(.68) saturate(.8)}85%{filter:brightness(.95)}}
+@keyframes cat-menace{0%,25%,86%,100%{opacity:0}48%,68%{opacity:.95}}
+@media(prefers-reduced-motion:reduce){.witch-flight{animation:none!important;transform:translate(480px,200px) scale(.64)}.witch-heading,.castle-cat-morph,.castle-cat-morph .painted-cat,.ominous-eyes{animation:none!important}.castle-cat-morph{transform:scale(.65)}.ominous-eyes{opacity:0}}
+@media(prefers-reduced-motion:reduce){.castle-cat-morph .cat-awake{animation:none!important;opacity:1}.castle-cat-morph .cat-asleep{animation:none!important;opacity:0}}
+
+.cat-cute-form{animation:cute-form 15s ease-in-out infinite}.cat-slender-form{opacity:0;animation:slender-form 15s ease-in-out infinite}
+@keyframes cute-form{0%,24%,90%,100%{opacity:1}45%,70%{opacity:0}}
+@keyframes slender-form{0%,24%,90%,100%{opacity:0}45%,70%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.cat-cute-form,.cat-slender-form{animation:none!important}.cat-cute-form{opacity:1}.cat-slender-form{opacity:0}.castle-cat-morph{transform:scale(.38)}.witch-heading{transform:none}.witch-flight{transform:translate(520px,240px) scale(1.35)}}
+
+.motion-off .castle-cat-morph .cat-awake,.motion-off .castle-cat-morph .cat-asleep{animation-play-state:paused!important}

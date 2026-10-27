@@ -1,0 +1,1 @@
+{"functions":[{"source":"functions","codebase":"default","ignore":["node_modules","*.log",".secret.local"]}],"firestore":{"rules":"firestore.rules"},"storage":{"rules":"storage.rules"}}

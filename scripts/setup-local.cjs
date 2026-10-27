@@ -1,0 +1,3 @@
+const fs=require('node:fs'),readline=require('node:readline/promises'),crypto=require('node:crypto');
+const {passwordHash}=require('../functions/core.cjs');
+(async()=>{fs.mkdirSync('private',{recursive:true});if(fs.existsSync('private/config.json'))throw new Error('Local configuration already exists; not overwritten.');const rl=readline.createInterface({input:process.stdin,output:process.stdout});const password=await rl.question('Local admin password (input visible): ');rl.close();if(password.length<8)throw new Error('At least 8 characters required');fs.writeFileSync('private/config.json',JSON.stringify({passwordHash:passwordHash(password),secret:crypto.randomBytes(32).toString('hex')}));console.log('Created ignored local configuration.');})();

@@ -1,0 +1,27 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+.next/
+coverage/
+*.log
+
+# Local scratch and OS files
+work/
+private/
+.firebase/
+functions/.secret.local
+firebase-debug.log*
+*-debug.log*
+tmp/
+.DS_Store
+Thumbs.db
+
+outputs/

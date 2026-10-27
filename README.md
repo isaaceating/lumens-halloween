@@ -1,0 +1,49 @@
+# Lumens Halloween
+
+Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配 Firebase 後端；第一版可在本機操作。
+
+## 目前狀態
+
+- 本機路徑：D:/Codex-Projects/lumens-halloween；Local checkout。
+- GitHub：https://github.com/isaaceating/lumens-halloween
+- Firebase Project ID：lumens-halloween-2026；Firestore 位於 asia-east1。
+- 已實作主辦密碼登入、三位參賽者編輯與照片上傳、工號資格核對、一人一票、暫停凍結倒數、手動結束與公布結果。
+- Functions／Storage／GitHub Pages 正式服務尚未部署。雲端啟用需先完成計費設定及部署驗收。
+
+## 本機開發
+
+需要 Node.js 22 或更新版本。正式 Firebase Functions runtime 為 Node.js 22。
+
+1. 新 checkout 執行 npm run setup-local 建立本機主辦密碼設定（輸入可見）；本專案目前已設定，請勿覆寫。
+2. 員工名單僅保存在 Git 忽略的 private/employee-import.json，格式為工號字串陣列；也可在後台匯入。
+3. npm run dev 啟動 http://127.0.0.1:4173；後台為 /admin.html。
+4. npm run check 檢查語法；npm test 驗證活動規則與權限；npm run build 產生 dist 公開前端。
+5. 視覺示意模式可加 ?demo=1，與正式資料模式區分；不會寫入正式投票。
+
+本機狀態與照片保存在 private/，重新啟動仍保留。它們不會自動上傳至 Firebase。不可把 private/、密碼、秘密金鑰或員工名單提交至 Git。
+
+## 功能規則
+
+- 預設 2026/10/30 15:00（台灣時間），30 分鐘，截止自動計算。
+- 主辦可提前開始、暫停、恢復及結束；暫停會凍結剩餘時間。
+- 工號資格核對，不加額外投票碼；每工號最多一票，不能改票。工號本身無法證明投票者本人。
+- 參賽照片發布後公開瀏覽；未發布的照片與文字僅主辦可見。
+- 票數在後端保密，截止後也不自動公布；由主辦按公布結果。
+- 主辦共享密碼採伺服器驗證，session 最長 8 小時。
+
+## 程式與素材
+
+index.html 保留古堡視覺，live.js 接上活動 API；admin.html 是主辦後台。functions/ 為 Firebase 後端及共用規則，scripts/server.cjs 為持久化本機開發伺服器。靜態建置使用公開檔案白名單，不會整個目錄上傳。
+
+assets/ 包含使用者提供的原始 Lumens Logo，以及以它和古堡風格生成的插畫；CSS/SVG 負責角色動畫。Google Fonts 有系統字型備援。
+
+## 文件
+
+- [協作規則](AGENTS.md)
+- [文件索引](docs/README.md)
+- [功能與驗收](docs/features.md)
+- [架構](docs/architecture.md)
+- [決策](docs/decisions.md)
+- [現況](docs/project-status.md)
+- [部署與活動操作](docs/deployment.md)
+- [交接](docs/handoffs/README.md)

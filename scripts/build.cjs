@@ -1,0 +1,3 @@
+const fs=require('node:fs'),path=require('node:path');
+const files=['index.html','admin.html','styles.css','magic.css','haunted.css','painted.css','live.css','admin.css','app.js','magic.js','haunted.js','painted.js','live.js','admin.js','site-config.js'];
+fs.mkdirSync('dist',{recursive:true});for(const f of files)fs.copyFileSync(f,path.join('dist',f));fs.mkdirSync('dist/assets',{recursive:true});for(const f of fs.readdirSync('assets').filter(f=>/^[a-z0-9-]+\.png$/.test(f)))fs.copyFileSync(path.join('assets',f),path.join('dist/assets',f));fs.writeFileSync('dist/.nojekyll','');console.log('Built static site using explicit public-file allowlist.');
