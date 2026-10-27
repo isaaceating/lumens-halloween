@@ -121,3 +121,9 @@ Local main，路徑 D:/Codex-Projects/lumens-halloween，基底 edc53f5，無 wo
 ## v1.10 待部署（2026-10-27）
 
 基底 7dad002；D:/Codex-Projects/lumens-halloween，main，Local，無 worktree。名單合併／取代及版本顯示已實作。18 項 Node 測試、語法與 build 通過。隔離瀏覽器驗證新增保留舊名單、取代提醒、取消無修改、確認取代及重設預設模式，error log 空。正式名單未作測試修改。待 commit/tag/push、Functions 與 Pages 部署回讀。
+
+## v1.10 正式驗證完成（2026-10-27，最新）
+
+發布程式提交 1c27e4040267b2028570ebd76e67859199a47f6d，固定 tag v1.10，Release：https://github.com/isaaceating/lumens-halloween/releases/tag/v1.10 。Functions 部署成功，正式 API 回讀 apiVersion=1.10.0；未確認取代請求回傳 400，revision 與名單數未變。Pages run 40533825514 成功，headSha 與 tag 相同。
+
+直接從 tag 的首次 Pages run 40533628996 被既有 main-only 環境保護拒絕；未修改保護規則，改從相同提交的 main 部署成功。正式瀏覽器登入、v1.10 標示、預設新增／更新及完整名單均已核對。沒有重匯正式名單或送出測試票。18 項測試與隔離瀏覽器流程已通過。後續文件提交不變更此發布 tag 或已部署程式。
