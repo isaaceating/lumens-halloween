@@ -83,3 +83,9 @@ painted.js、painted.css 在原動畫基礎上替換角色層。assets/castle-ch
 - 本機LocalStore以串行交易和原子檔案替換持久化，與雲端adapter共用業務邏輯。Firestore emulator／雲端端到端尚未驗證。
 - 靜態dist使用明確白名單，private、functions、員工名單與秘密不進公開產物。GitHub Actions只自動檢查，Pages需手動觸發。
 - 預設時區Asia/Taipei，開始2026-10-30T07:00:00Z、時長1800000ms。暫停存剩餘時長；恢復以伺服器現在時間重算截止。公布獨立於截止。
+
+## 2026-10-27 正式部署補充
+
+Functions API 已部署 asia-east1；Storage bucket 同區；Pages 使用已確認的 HTTPS API URL。POST /employee 按工號 HMAC 查單筆 employeeProfiles，僅回傳 name、department，按 IP 限流，不回傳投票狀態或全名單。個資僅放 Firebase 私有活動文件與忽略的本機 private/。publicView 白名單排除 employeeProfiles。工號仍不是身份驗證，知道他人工號可查到對應姓名。
+
+參賽者 photos 最多 3 個受驗證圖片 URL，photo 保留為第一張封面以相容舊版。未發布資料不回傳相簿。Cloud Run 部署映像保留 7 天；不影響活動資料與參賽照片。隔離本機驗證可用 LUMENS_PORT、LUMENS_DATA_DIR，與正式狀態完全分開。

@@ -30,3 +30,9 @@
 - 限制：單一活動最多 2,000 筆資格；目前固定三位參賽者。Firestore 以單文件交易確保活動狀態與投票一致，適合本次規模，上線前須驗證同時投票負載。
 
 官方依據：[Functions 部署](https://firebase.google.com/docs/functions/get-started)、[Storage 計費要求](https://firebase.google.com/docs/storage/faqs-storage-changes-announced-sept-2024)。
+
+## 2026-10-27 本輪部署更新
+
+取代上方「尚未上線」現況：Blaze 已由使用者啟用並查證；Functions、Storage、秘密與規則均已部署；Pages 已啟用，發布驗證見 project-status.md。正式 API：https://asia-east1-lumens-halloween-2026.cloudfunctions.net/api 。正式名單含單筆身份欄位，已匯入私有 Firestore，沒有測試票。後台網址為 https://isaaceating.github.io/lumens-halloween/admin.html 。
+
+測試活動採本機隔離資料夾；雲端僅執行登入、單筆查詢、照片服務與公開回應檢查，尚未在隔離 Firestore 專案測試完整投票／結束。不得將正式活動作破壞性流程驗收。後台上傳照片後必須按儲存參賽者；取消發布會停止於前台顯示，不會刪除儲存物件。

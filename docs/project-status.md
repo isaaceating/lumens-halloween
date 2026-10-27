@@ -105,3 +105,9 @@
 驗證：10項Node測試通過（時間邊界、暫停凍結、資格、併發一票、票數保密、登入session、限流、匯入與上傳驗證）；npm run check、build通過；Firestore Rules已成功編譯並發布。瀏覽器已驗證首頁三名額與未開放狀態、後台登入、預設時間與儲存。照片選擇器和完整雲端流程尚未實測。
 
 未完成：Functions／Storage／Pages正式上線、計費連結、雲端名單匯入、照片及完整負載驗收。local state與照片不會自動同步到Firebase。部署要求見deployment.md。
+
+## 正式部署進行中（2026-10-27）
+
+Local main，路徑 D:/Codex-Projects/lumens-halloween，基底 edc53f5，無 worktree。Blaze 已確認；Functions API、Storage 與保密規則部署成功，部署映像清理策略已補設 7 天。正式資格快照已匯入，0 票、等待開始、三位未發布。Pages 已啟用，待本次提交後觸發發布與線上驗證。
+
+新增身份帶入與最多三張相簿；12 項測試、語法、build 通過；隔離瀏覽器完成三張上傳／保存／相簿切換／測試身份帶入／成功投票。雲端登入、名單匯入、單筆身份比對、跨網域、照片上傳下載及公開資料保密已驗證。沒有在正式活動投測試票；Firestore 大量同時投票尚未負載測試。

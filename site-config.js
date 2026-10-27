@@ -1,2 +1,2 @@
-// Public configuration only. Set apiBase to the verified deployed API URL before release.
-window.LUMENS_CONFIG={apiBase:['localhost','127.0.0.1'].includes(location.hostname)?'/api':null};
+// Public API URL only; secrets remain in Firebase Secret Manager.
+window.LUMENS_CONFIG={apiBase:['localhost','127.0.0.1'].includes(location.hostname)?'/api':'https://asia-east1-lumens-halloween-2026.cloudfunctions.net/api'};
