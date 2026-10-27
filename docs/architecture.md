@@ -89,3 +89,7 @@ painted.js、painted.css 在原動畫基礎上替換角色層。assets/castle-ch
 Functions API 已部署 asia-east1；Storage bucket 同區；Pages 使用已確認的 HTTPS API URL。POST /employee 按工號 HMAC 查單筆 employeeProfiles，僅回傳 name、department，按 IP 限流，不回傳投票狀態或全名單。個資僅放 Firebase 私有活動文件與忽略的本機 private/。publicView 白名單排除 employeeProfiles。工號仍不是身份驗證，知道他人工號可查到對應姓名。
 
 參賽者 photos 最多 3 個受驗證圖片 URL，photo 保留為第一張封面以相容舊版。未發布資料不回傳相簿。Cloud Run 部署映像保留 7 天；不影響活動資料與參賽照片。隔離本機驗證可用 LUMENS_PORT、LUMENS_DATA_DIR，與正式狀態完全分開。
+
+## v1.10 名單匯入（2026-10-27）
+
+functions/employees.cjs 處理交易內新增／更新與取代。POST /admin/employees 的 mode 預設 merge，replace 需要確認旗標與精確 revision。合併讀取最新交易快照，避免並行新增互相覆蓋；更新只影響提供的身份欄位，回應 importSummary 不含工號及姓名。apiVersion 回傳套件版本 1.10.0；介面與 Git tag 顯示 v1.10。

@@ -36,3 +36,7 @@
 取代上方「尚未上線」現況：Blaze 已由使用者啟用並查證；Functions、Storage、秘密與規則均已部署；Pages 已啟用，發布驗證見 project-status.md。正式 API：https://asia-east1-lumens-halloween-2026.cloudfunctions.net/api 。正式名單含單筆身份欄位，已匯入私有 Firestore，沒有測試票。後台網址為 https://isaaceating.github.io/lumens-halloween/admin.html 。
 
 測試活動採本機隔離資料夾；雲端僅執行登入、單筆查詢、照片服務與公開回應檢查，尚未在隔離 Firestore 專案測試完整投票／結束。不得將正式活動作破壞性流程驗收。後台上傳照片後必須按儲存參賽者；取消發布會停止於前台顯示，不會刪除儲存物件。
+
+## v1.10 版本與名單操作
+
+使用 Git tag v1.10 對應 npm/API 1.10.0；手動 Pages 發布選該 tag。預設「新增／更新」可只匯入新增同仁；提供身份物件可更新姓名部門，只有工號不清空既有身份。若確定要移除檔案以外同仁才選「整份取代」，核對提醒後確認。部署只更新程式，不重匯或取代正式名單。

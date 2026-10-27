@@ -1,6 +1,7 @@
 'use strict';
 const crypto=require('node:crypto');
 const C=require('./core.cjs');
+const {importEmployees}=require('./employees.cjs');
 function createApi({store,secret,passwordHash,savePhoto,now=Date.now}){
  const transact=fn=>store.transaction(fn);
  async function rate(ip,scope,limit){const t=now(),id=`limits/${C.keyFor(secret,scope,ip)}-${Math.floor(t/60000)}`;await transact(async tx=>{const v=await tx.get(id)||{n:0};C.assert(v.n<limit,'操作太頻繁，請稍後再試',429);tx.set(id,{n:v.n+1,expiresAt:t+120000});});}
@@ -21,14 +22,15 @@ function createApi({store,secret,passwordHash,savePhoto,now=Date.now}){
    C.assert(png||jpeg,'請使用 PNG 或 JPEG 圖片');return {url:await savePhoto(bytes,png?'png':'jpg')};
   }
   return transact(async tx=>{const s=await tx.get(C.EVENT)||C.initial();
-   if(path==='/admin/employees'){C.assert(C.clock(s,t).status==='scheduled'&&!Object.keys(s.votes).length,'名單僅能在活動開始前匯入');C.assert(Array.isArray(body.ids)&&body.ids.length>0&&body.ids.length<=2000,'請提供 1–2000 筆工號');s.employeeProfiles={};s.employees=[...new Set(body.ids.map(x=>{const object=typeof x==='object'&&x!==null;const key=C.keyFor(secret,'employee',C.employeeId(object?x.id:x));if(object){C.assert(typeof x.name==='string'&&x.name.trim()&&x.name.length<=80&&typeof x.department==='string'&&x.department.length<=120,'姓名或部門格式不正確');s.employeeProfiles[key]={name:x.name.trim(),department:x.department.trim()};}return key;}))];s.revision++;}
+   let importSummary;
+   if(path==='/admin/employees')importSummary=importEmployees(s,body,secret,now());
    else {C.assert(body.revision===s.revision,'資料已更新，請重新整理後再操作',409);
     if(path==='/admin/control'){if(body.action==='publish'){C.assert(C.clock(s,t).status==='ended','投票結束後才能公布');s.mode='ended';s.published=true;s.revision++;}else C.control(s,body.action,t);}
     else if(path==='/admin/settings')C.settings(s,body,t);
     else if(path==='/admin/candidate'){C.assert(C.clock(s,t).status==='scheduled','參賽資料僅能在活動開始前修改');const c=s.candidates.find(c=>c.id===body.id);C.assert(c,'無此參賽者');for(const [field,max]of [['name',60],['costume',80],['description',500]]){C.assert(typeof body[field]==='string'&&body[field].length<=max,`${field} 長度不正確`);c[field]=body[field].trim();}C.assert(c.name&&c.costume,'姓名及造型名稱必填');const photos=body.photos===undefined?(body.photo?[body.photo]:[]):body.photos;C.assert(Array.isArray(photos)&&photos.length<=3,'每位參賽者最多 3 張照片');for(const photo of photos){C.assert(typeof photo==='string'&&photo.length>0&&(/^\/media\/[a-f0-9-]+\.(png|jpg)$/.test(photo)||/^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/lumens-halloween-2026\.firebasestorage\.app\/o\/photos%2F[a-f0-9-]+\.(png|jpg)\?alt=media&token=[a-f0-9-]+$/.test(photo)),'照片網址不正確');}c.photos=[...new Set(photos)];c.photo=c.photos[0]||'';c.active=body.active===true;C.assert(!c.active||c.photo,'發布前請先上傳照片');s.revision++;}
     else throw new C.Fault(404,'找不到此功能');
    }
-   tx.set(C.EVENT,s);return C.adminView(s,now());
+   tx.set(C.EVENT,s);return {...C.adminView(s,now()),...(importSummary?{importSummary}:{})};
   });
  };
 }

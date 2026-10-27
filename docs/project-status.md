@@ -117,3 +117,7 @@ Local main，路徑 D:/Codex-Projects/lumens-halloween，基底 edc53f5，無 wo
 正式網址：https://isaaceating.github.io/lumens-halloween/ ；後台：admin.html。發布程式版本 752b7c1，GitHub Pages run 40480067770 與 Validate run 40480049154 均 success。正式瀏覽器首頁取得雲端活動狀態、後台登入成功，預定 10/30 15:00、30 分鐘、0 票、三位未發布；瀏覽器 error log 為空。後台 390px viewport 檢查無橫向溢位。
 
 保留限制：尚無正式參賽照片及名稱；完整投票在隔離本機以虛構身份驗證，雲端採非破壞性驗證，未做大量同時投票負載測試。使用者可於後台補資料。工作仍在 D 槽 Local main，無額外 worktree。
+
+## v1.10 待部署（2026-10-27）
+
+基底 7dad002；D:/Codex-Projects/lumens-halloween，main，Local，無 worktree。名單合併／取代及版本顯示已實作。18 項 Node 測試、語法與 build 通過。隔離瀏覽器驗證新增保留舊名單、取代提醒、取消無修改、確認取代及重設預設模式，error log 空。正式名單未作測試修改。待 commit/tag/push、Functions 與 Pages 部署回讀。
