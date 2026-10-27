@@ -169,3 +169,7 @@ Local main / 0e61404，保留既有未提交 v1.11 工作，未 commit/push/depl
 ### 2026-10-28 v1.11 發布準備
 來源：使用者授權測試後提交、推送、部署。Local main / 基底 0e61404；本輪全部 v1.11 視覺調整納入發布。Footer 更新為「2026 捷揚福委會 Presented」。18 秒演出加入前後共用的手心集氣，12.5 秒送光完成後回程／噴發，18 秒還原。
 驗證：npm run check、18 項測試、npm run build 通過。瀏覽器約 10967ms 有 14 顆集氣粒子及手掌光球；13689ms 正面已淡出且 24 顆南瓜可見；完成 ready=true、awake=false、集氣粒子全隱藏，console 無錯誤。本次前端 1.11.0，API 保持 1.10.0；不寫入正式投票或名單。正式部署待 GitHub Actions 完成後補驗證紀錄。
+
+### 2026-10-28 v1.11 正式發布完成
+發布 commit：2e53135d06bc5e157d774e857e35bc375bf9dbad；Git tag v1.11 已推送。GitHub Pages run 40572575099 成功（含遠端語法檢查、18 項測試、建置），https://github.com/isaaceating/lumens-halloween/actions/runs/40572575099 。正式網址 https://isaaceating.github.io/lumens-halloween/ 。
+正式驗證：首頁與 site-config 內容完全一致；awakening.js、hero.css 排除 Git 換行格式後與發布來源一致。瀏覽器顯示活動「即將開放」、三位參賽者、Footer「2026 捷揚福委會 Presented」，圖片無載入失敗；手心集氣演出可用，console 無錯誤。前端 v1.11／API v1.10.0；本次沒有 Firebase 部署、名單匯入或正式投票寫入。
