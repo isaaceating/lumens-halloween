@@ -33,3 +33,18 @@
 
 
 #detailDialog .lightbox-copy,#detailDialog .lightbox-copy h2{color:#f3dfc4}#detailDialog .lightbox-copy p{color:#d5c3dc}#detailDialog .lightbox-copy .contestant-name{color:#e3bc85}@media(max-width:650px){.event-panel .event-rules{padding:13px 0 0}}
+
+/* v1.17: a framed notice with quiet Halloween ornaments flanking the information. */
+.event-panel{padding:36px clamp(100px,17vw,200px) 34px;border:2px solid #bd8a54;border-radius:24px 6px 24px 6px;box-shadow:inset 0 0 0 6px #17121e,inset 0 0 0 8px #92653d, inset 0 0 60px #cc702318,0 12px 36px #170e2533}
+.event-panel:before,.event-panel:after{content:'';top:12px;bottom:12px;left:12px;right:12px;width:auto;height:auto;font-size:0;pointer-events:none}
+.event-panel:before{border:1px solid #d8a66b66;border-radius:16px 2px 16px 2px}
+.event-panel:after{inset:18px;border-top:1px dashed #c4956138;border-bottom:1px dashed #c4956138}
+.notice-content{position:relative;z-index:1}
+.event-panel #eventStatus{color:#f3e7d2}
+.event-panel .event-clock strong{color:#ff9e43;text-shadow:0 2px 0 #54261e,0 0 24px #ef7a3444}
+.notice-ornament{position:absolute;top:0;bottom:0;width:clamp(110px,18%,205px);height:100%;color:#aa784e;opacity:.65;pointer-events:none}
+.ornament-left{left:0}.ornament-right{right:0;transform:scaleX(-1)}
+.event-panel .notice-bat{left:7%;top:40%;width:70px!important;opacity:.5}
+.event-panel .notice-pumpkin{right:25px;bottom:15px;width:100px!important;opacity:.85}
+.event-panel .pumpkin-left{left:24px;right:auto;width:78px!important;transform:rotate(-12deg)}
+@media(max-width:800px){.event-panel{padding:32px 30px 58px}.notice-ornament{width:70px;opacity:.28}.event-panel .notice-bat{left:15px;top:16px;width:38px!important;opacity:.35}.event-panel .notice-pumpkin{width:55px!important;bottom:9px;right:14px}.event-panel .pumpkin-left{width:45px!important;left:14px}.event-panel .event-rules{position:relative}.event-panel #eventStatus{font-size:25px}}

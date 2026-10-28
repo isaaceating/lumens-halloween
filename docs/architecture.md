@@ -137,3 +137,7 @@ publicView 僅在 published 且 clock.status=ended 時回傳真實候選者 name
 
 ## v1.16（2026-10-29）
 index.html 新增 hero-intro 格線容器，桌面文案／操作兩欄、手機單欄；未入場投票 CTA 以 visibility:hidden 保留位置並阻止點擊／焦點。移除 replayCastle DOM 與 awakening.js 綁定，保留 castSpell 及原 sessionStorage 入場邏輯；API 不變。
+
+## v1.17（2026-10-29）
+awakening.js 的 castleShowTiming 分離場景點亮與角色時間軸：最後一盞燈於 3100ms 完成，4300ms 才啟動飛入；後續角色 cue 整體延後 2300ms，10300ms 起淡出、11300ms 完成。光球入門淡出與燈光依 lighting 時間，避免等待時殘留光球；中央塔施法、南瓜等依 actor 時間。純時間函式可由 Node 測試，瀏覽器保留原 RAF／可視性暫停。
+公告兩側使用靜態 inline SVG 裝飾與既有南瓜 WebP，不加下載依賴；時間用 Asia/Taipei、hour/minute 格式，不改伺服器活動時間。API 維持 1.14.0。

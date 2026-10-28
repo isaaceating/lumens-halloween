@@ -154,8 +154,8 @@ header{position:relative;top:auto;width:100%;margin:0;z-index:5}
 /* Invite a click with an amber rim; hover and active show keep their existing appearance. */
 .hero-actions .castle-key:not(:hover):not(:focus-visible):not(:disabled){animation:invitation-breathe 1s ease-in-out infinite}
 @keyframes invitation-breathe{
-  0%,100%{border-color:#8d684c;box-shadow:inset 0 0 0 3px #211625,inset 0 0 0 4px #795e4855,0 0 4px #e6a34a22}
-  50%{border-color:#ffcf88;box-shadow:inset 0 0 0 3px #211625,inset 0 0 0 4px #795e4855,0 0 10px #ffc16b99,0 0 23px #e9973e55}
+  0%,100%{border-color:#8d684c;box-shadow:inset 0 0 0 3px #211625,inset 0 0 0 4px #795e4855,0 0 0 2px #d69a5855,0 0 10px 2px #e6a34a33}
+  50%{border-color:#ffcf88;box-shadow:inset 0 0 0 3px #211625,inset 0 0 0 4px #795e4855,0 0 0 4px #ffc16bcc,0 0 18px 5px #ffc16b99,0 0 34px 8px #e9973e55}
 }
 @media(prefers-reduced-motion:reduce){.hero-actions .castle-key{animation:none!important}}
 .charge-mote{pointer-events:none;filter:drop-shadow(0 0 5px #edbeff)}
