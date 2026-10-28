@@ -161,3 +161,12 @@ header{position:relative;top:auto;width:100%;margin:0;z-index:5}
 .charge-mote{pointer-events:none;filter:drop-shadow(0 0 5px #edbeff)}
 /* Keep the organizer credit visible on mobile after replacing the preview label. */
 footer>span:last-child{display:inline}
+/* Enter once per tab; replays never close the party. */
+html:not(.castle-entered) #partyContent,html:not(.castle-entered) .entry-vote{display:none!important}
+.hero-actions{justify-content:flex-start;flex-wrap:wrap}
+.hero-actions .castle-key{font-size:13px;white-space:nowrap}
+.castle-entered #partyContent{animation:party-arrival .7s ease-out}
+@keyframes party-arrival{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+footer{justify-content:flex-start;gap:22px}footer>span{font-size:12px;line-height:1.8}
+@media(max-width:800px){.hero-actions{gap:10px}.hero-actions .castle-key{font-size:11px;padding-left:18px;padding-right:18px}footer{flex-wrap:wrap;gap:8px 18px}}
+@media(prefers-reduced-motion:reduce){.castle-entered #partyContent{animation:none}}

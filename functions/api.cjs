@@ -27,6 +27,7 @@ function createApi({store,secret,passwordHash,savePhoto,now=Date.now}){
    else {C.assert(body.revision===s.revision,'資料已更新，請重新整理後再操作',409);
     if(path==='/admin/control'){if(body.action==='publish'){C.assert(C.clock(s,t).status==='ended','投票結束後才能公布');s.mode='ended';s.published=true;s.revision++;}else C.control(s,body.action,t);}
     else if(path==='/admin/settings')C.settings(s,body,t);
+    else if(path==='/admin/reset')C.reset(s,body,now());
     else if(path==='/admin/candidate'){C.assert(C.clock(s,t).status==='scheduled','參賽資料僅能在活動開始前修改');const c=s.candidates.find(c=>c.id===body.id);C.assert(c,'無此參賽者');for(const [field,max]of [['name',60],['costume',80],['description',500]]){C.assert(typeof body[field]==='string'&&body[field].length<=max,`${field} 長度不正確`);c[field]=body[field].trim();}C.assert(c.name&&c.costume,'姓名及造型名稱必填');const photos=body.photos===undefined?(body.photo?[body.photo]:[]):body.photos;C.assert(Array.isArray(photos)&&photos.length<=3,'每位參賽者最多 3 張照片');for(const photo of photos){C.assert(typeof photo==='string'&&photo.length>0&&(/^\/media\/[a-f0-9-]+\.(png|jpg)$/.test(photo)||/^https:\/\/firebasestorage\.googleapis\.com\/v0\/b\/lumens-halloween-2026\.firebasestorage\.app\/o\/photos%2F[a-f0-9-]+\.(png|jpg)\?alt=media&token=[a-f0-9-]+$/.test(photo)),'照片網址不正確');}c.photos=[...new Set(photos)];c.photo=c.photos[0]||'';c.active=body.active===true;C.assert(!c.active||c.photo,'發布前請先上傳照片');s.revision++;}
     else throw new C.Fault(404,'找不到此功能');
    }

@@ -111,3 +111,7 @@ hero.css / hero.js 在原插畫動畫層之後載入。角色互動使用 SVG �
 2026-10-28 節奏微調：awakening.js 增加獨立 flightTime，僅加倍 7 秒後的接近路徑時間，到中央塔後夾止至原回程 cue；其他效果沿用原時鐘。hero.css 的 invitation-breathe 僅套用非 hover/focus/disabled 狀態，避免覆寫既有 hover 樣式。
 
 2026-10-28 最終版：前後兩次手心集氣共用 14 顆 SVG 粒子及光球，後段手掌以 witch 的畫面座標矩陣定位；光球以曲線送到塔尖，回程、噴發和收尾各用獨立時間。finish 同步清除粒子、光球縮放與演出狀態。前端 v1.11.0 與 API v1.10.0 分開記錄，本次沒有後端程式變更或 Firebase 部署。
+
+## v1.12 入場與重設（2026-10-28）
+首頁以 html.castle-entered 控制 #partyContent 及投票 CTA；lumens-party-entered 僅存 sessionStorage，不是投票權限。10+3 秒使用單一演出時鐘，揭幕不改活動狀態。手動開始另記 startedAt，公告欄顯示實際開始。
+POST /admin/reset 沿用主辦 session 與 Firestore 單文件交易，要求 revision、expectedTotalVotes、confirmation=RESET、未來 scheduledAt 及合法 durationMinutes；重設票與狀態、遞增 generation，保留其他內容。publicView 僅新增 generation/startedAt，不洩漏名單或票數；前台發現 generation 改變會解除本頁已投票標記並關閉過期對話。部署不遷移或重設任何資料。

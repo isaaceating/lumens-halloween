@@ -173,3 +173,7 @@ Local main / 0e61404，保留既有未提交 v1.11 工作，未 commit/push/depl
 ### 2026-10-28 v1.11 正式發布完成
 發布 commit：2e53135d06bc5e157d774e857e35bc375bf9dbad；Git tag v1.11 已推送。GitHub Pages run 40572575099 成功（含遠端語法檢查、18 項測試、建置），https://github.com/isaaceating/lumens-halloween/actions/runs/40572575099 。正式網址 https://isaaceating.github.io/lumens-halloween/ 。
 正式驗證：首頁與 site-config 內容完全一致；awakening.js、hero.css 排除 Git 換行格式後與發布來源一致。瀏覽器顯示活動「即將開放」、三位參賽者、Footer「2026 捷揚福委會 Presented」，圖片無載入失敗；手心集氣演出可用，console 無錯誤。前端 v1.11／API v1.10.0；本次沒有 Firebase 部署、名單匯入或正式投票寫入。
+
+### 2026-10-28 v1.12 發布準備
+Local D:/Codex-Projects/lumens-halloween，main，基底 db56105；無 worktree。已完成 F009。21 項自動測試通過（含隔離完整活動、重設後再次投票、錯誤／過期／並行重設）；語法檢查與白名單建置通過。
+本機隔離站 4182 瀏覽器驗收：3.5 秒後展開、13 秒後 wake-level/cat-form 為 0、重播保持展開、刷新／後台返回保持入場、390×844 無水平溢出、RESET 未輸入時禁用／輸入後啟用／取消。未在正式站投票或重設；未測實機手機。部署完成後補發布證據。
