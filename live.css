@@ -48,3 +48,14 @@
 .event-panel .notice-pumpkin{right:25px;bottom:15px;width:100px!important;opacity:.85}
 .event-panel .pumpkin-left{left:24px;right:auto;width:78px!important;transform:rotate(-12deg)}
 @media(max-width:800px){.event-panel{padding:32px 30px 58px}.notice-ornament{width:70px;opacity:.28}.event-panel .notice-bat{left:15px;top:16px;width:38px!important;opacity:.35}.event-panel .notice-pumpkin{width:55px!important;bottom:9px;right:14px}.event-panel .pumpkin-left{width:45px!important;left:14px}.event-panel .event-rules{position:relative}.event-panel #eventStatus{font-size:25px}}
+
+/* Give the media all remaining viewport space, with only a compact title/strip. */
+#detailDialog{width:98vw;max-width:1600px;height:96dvh;max-height:96dvh;padding:12px 16px;box-sizing:border-box;overflow:hidden}
+#detailContent:has(.lightbox-stage){height:100%;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto auto;gap:7px}
+#detailDialog .lightbox-stage{height:100%;min-height:0;overflow:hidden}
+#detailDialog .lightbox-stage>img,#detailDialog .lightbox-stage>video{min-height:0}
+#detailDialog .lightbox-copy h2{font-size:22px;line-height:1.25;margin:0}
+#detailDialog .media-thumbnails{margin:0;min-height:0;padding:4px}
+#detailDialog .media-thumb{width:52px;height:48px}
+#detailDialog .close{z-index:3}
+@media(max-width:800px){#detailDialog{padding:10px;width:98vw;height:97dvh;max-height:97dvh}#detailDialog .lightbox-copy h2{font-size:19px}#detailDialog .media-thumb{width:44px;height:40px}}

@@ -141,3 +141,7 @@ index.html 新增 hero-intro 格線容器，桌面文案／操作兩欄、手機
 ## v1.17（2026-10-29）
 awakening.js 的 castleShowTiming 分離場景點亮與角色時間軸：最後一盞燈於 3100ms 完成，4300ms 才啟動飛入；後續角色 cue 整體延後 2300ms，10300ms 起淡出、11300ms 完成。光球入門淡出與燈光依 lighting 時間，避免等待時殘留光球；中央塔施法、南瓜等依 actor 時間。純時間函式可由 Node 測試，瀏覽器保留原 RAF／可視性暫停。
 公告兩側使用靜態 inline SVG 裝飾與既有南瓜 WebP，不加下載依賴；時間用 Asia/Taipei、hour/minute 格式，不改伺服器活動時間。API 維持 1.14.0。
+
+## v1.18（2026-10-29）
+hero-assets.js 以 Image.decode 等候完整圖片可用，先背景後三工作者去重隊列；每張 20 秒逾時，失敗可重試，工作者全部 settle 後才允許下一次嘗試。painted.js 與 awakening.js 暫存 SVG 圖片 data-src，準備後填入 href；背景 preload 提前並 high priority，銘牌 low priority，原檔與尺寸不變。根元素 hero-ready 與 SceneMotion 同步，載入期間停止不可見動畫；ready 前 button disabled／visibility hidden 且 startShow 另有守門。
+時間軸：全亮 3100ms → 飛入 3900ms → 到位 5400ms → 轉向 5600–5950ms → 集氣 5950–6450ms → 後續南瓜／回程；10450ms 開始淡出，11450ms 完成。照片燈箱用 minmax(0,1fr) grid 分配剩餘高度，名稱與縮圖兩行固定內容，實際影片原生 controls 保留。API 保持 1.14.0。

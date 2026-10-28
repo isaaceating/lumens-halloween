@@ -215,3 +215,13 @@ html:not(.castle-entered) .hero-intro .entry-vote{display:flex!important;visibil
 @media(max-height:650px) and (max-width:800px){.hero-intro{margin-top:5px}.hero-intro .hero-actions{margin-top:8px;gap:6px}}
 @media(min-width:801px) and (min-height:700px){.hero-copy{transform:translateY(-140px)}}
 @media(min-width:801px) and (max-height:699px){.hero-copy{transform:translateY(-115px)}.hero .castle-title{width:320px;max-width:100%}.hero-intro{margin-top:16px}}
+
+/* Reserve the action slot until every full-quality scene asset is decoded. */
+.hero-actions{position:relative}
+html:not(.hero-ready) #castSpell{visibility:hidden}
+.hero-load-state{position:absolute;top:0;left:0;width:100%;min-height:60px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;padding:10px;color:#dfc9ad;background:#241a30;border:1px solid #977345;border-radius:5px 15px;font-size:14px;pointer-events:auto}
+.hero-load-state button{font:inherit;color:#ffe0a8;background:#493247;border:1px solid #a87c50;border-radius:5px;padding:4px 10px;cursor:pointer}
+.hero-load-state button[hidden]{display:none}
+.hero-ready .hero-load-state{display:none}
+html:not(.hero-ready) body .hero *,html:not(.hero-ready) body .hero *::before,html:not(.hero-ready) body .hero *::after{animation-play-state:paused!important}
+@media(max-width:800px){.hero-load-state{min-height:51px;font-size:13px}}
