@@ -184,3 +184,7 @@ Local D:/Codex-Projects/lumens-halloween，main，基底 db56105；無 worktree�
 
 ### 2026-10-28 v1.13 發布準備
 Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完成。22 項自動測試、語法與白名單建置通過。隔離站 4183 使用假名稱／照片，瀏覽器確認公布前卡片與相簿隱藏選手名、公布後兩處顯示。390×844 無水平溢出、兩按鈕完整；桌面按鈕字 15／17px，Footer 高度 52px。4568ms 可見飛向塔尖南瓜，front width=340.4（原370），11.3 秒後還原；console 無錯誤。未操作正式活動資料，未測實體手機。
+
+### 2026-10-28 v1.13 正式發布完成
+發布 commit e33fac0cbd0e4497a16ff47ebe85a0a5d9b17695，tag v1.13 已推送。Functions 更新成功，正式 API 1.13.0，活動 scheduled／published=false／generation=0。Pages run 40667091437 成功：https://github.com/isaaceating/lumens-halloween/actions/runs/40667091437 。首頁、site-config、awakening、hero.css、live.css、live.js、admin.js 與發布來源比對一致。
+正式瀏覽器確認喚醒、收尾、入場、集中公告／倒數及三位候補變裝標題，console 無錯誤。截圖 outputs/v1.13-production.png（不入 Git）。正式活動資料未重設、未投票或公布；完整公布前後姓名測試於隔離假資料環境完成。
