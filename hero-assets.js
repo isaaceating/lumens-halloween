@@ -22,7 +22,7 @@ else (()=>{
  const background=hero.querySelector('.castle-art').getAttribute('src'),nodes=[...hero.querySelectorAll('image[data-src]')];
  const urls=[...nodes.map(e=>e.getAttribute('data-src')),...[...hero.querySelectorAll('img[src]')].map(e=>e.getAttribute('src'))];
  const total=new Set([background,...urls]).size+1,cache=new Map();let loading=false,fontsDone=false;
- function report(){const done=cache.size+Number(fontsDone),percent=Math.floor(done/total*100);status.textContent=`古堡準備中… ${percent}%`;bar.setAttribute('aria-valuenow',percent);bar.setAttribute('aria-valuetext',`${done} / ${total} 項素材已準備`);bar.style.setProperty('--progress',percent+'%');}
+ function report(){const done=cache.size+Number(fontsDone),percent=Math.floor(done/total*100);status.textContent=`派對準備中… ${percent}%`;bar.setAttribute('aria-valuenow',percent);bar.setAttribute('aria-valuetext',`${done} / ${total} 項素材已準備`);bar.style.setProperty('--progress',percent+'%');}
  async function fonts(){if(fontsDone)return;let timer;try{await Promise.race([document.fonts?.ready||Promise.resolve(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('字型載入逾時')),20000)})]);fontsDone=true;report();}finally{clearTimeout(timer);}}
  async function prepare(){
   if(loading)return;loading=true;retry.hidden=true;button.disabled=true;report();
