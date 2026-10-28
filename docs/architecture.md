@@ -145,3 +145,6 @@ awakening.js 的 castleShowTiming 分離場景點亮與角色時間軸：最後�
 ## v1.18（2026-10-29）
 hero-assets.js 以 Image.decode 等候完整圖片可用，先背景後三工作者去重隊列；每張 20 秒逾時，失敗可重試，工作者全部 settle 後才允許下一次嘗試。painted.js 與 awakening.js 暫存 SVG 圖片 data-src，準備後填入 href；背景 preload 提前並 high priority，銘牌 low priority，原檔與尺寸不變。根元素 hero-ready 與 SceneMotion 同步，載入期間停止不可見動畫；ready 前 button disabled／visibility hidden 且 startShow 另有守門。
 時間軸：全亮 3100ms → 飛入 3900ms → 到位 5400ms → 轉向 5600–5950ms → 集氣 5950–6450ms → 後續南瓜／回程；10450ms 開始淡出，11450ms 完成。照片燈箱用 minmax(0,1fr) grid 分配剩餘高度，名稱與縮圖兩行固定內容，實際影片原生 controls 保留。API 保持 1.14.0。
+## v1.19（2026-10-29）
+hero-assets.js 使用四工作者去重佇列與並行字型準備，移除背景解碼前置相依。Map 保存同次頁面成功解碼素材供重試使用；全部工作 settle 後才開放重試。百分比分母固定為唯一圖片數＋字型項，成功解碼／字型 ready 才增加，完成後同步填入 SVG href 並設 hero-ready。進度以 CSS 更新，無新圖檔或持續 frame loop。
+Luna 飛入 3700ms、到位 5200ms、轉向 5400–5750ms、集氣至 6250ms；最後南瓜於 11700ms 結束才回程，12700ms 起淡出、13700ms 完成。保留 actor 與 lighting 分離及場景暫停。

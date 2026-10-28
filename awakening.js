@@ -1,8 +1,8 @@
-// Separate lighting from Luna's cue clock: all windows lit, then a 0.8s hold.
+// Separate lighting from Luna's cue clock: all windows lit, then a 0.6s hold.
 function castleShowTiming(actualTime){
- const flightStart=3900,arrival=5400,turnStart=5600,chargeStart=5950,showEnd=10450,total=11450;
+ const flightStart=3700,arrival=5200,turnStart=5400,chargeStart=5750,showEnd=12700,total=13700;
  const t=actualTime;
- const actor=t<1000?1500+t*.5:t<2000?2000+(t-1000)*1.5:t<flightStart?3500:t<arrival?3500+t-flightStart:t<chargeStart?5000:t<6450?5000+(t-chargeStart)*2:6000+t-6450;
+ const actor=t<1000?1500+t*.5:t<2000?2000+(t-1000)*1.5:t<flightStart?3500:t<arrival?3500+t-flightStart:t<chargeStart?5000:t<6250?5000+(t-chargeStart)*2:6000+t-6250;
  return {actor,lighting:t<2000?actor:3500+t-2000,flightStart,arrival,turnStart,chargeStart,turnProgress:Math.max(0,Math.min(1,(t-turnStart)/(chargeStart-turnStart))),showEnd,total};
 }
 if(typeof module==='object'&&module.exports)module.exports={castleShowTiming};
@@ -38,11 +38,11 @@ else (() => {
   stageMatrix=stage.getScreenCTM();const inverse=stageMatrix.inverse(),hr=hero.getBoundingClientRect();
   castingPumpkin.setAttribute('opacity',0);pumpkinTrail.setAttribute('opacity',0);
   const startX=innerWidth<=800?680:440,fade=1-smooth((actualTime-showEnd)/1000);
-  const approach=smooth((time-3500)/1500),returning=smooth((time-6500)/3500);
+  const approach=smooth((time-3500)/1500),returning=smooth((time-11450)/1000);
   let x=mix(startX,1050,approach),y=270+approach*10-Math.sin(approach*Math.PI)*65,scale=mix(1.3,1.4,approach);
-  if(time>=6500){x=mix(1050,800,returning);y=mix(280,185,returning);scale=mix(1.4,1.3,returning)}
+  if(time>=11450){x=mix(1050,800,returning);y=mix(280,185,returning);scale=mix(1.4,1.3,returning)}
   witch.style.setProperty('transform',`translate(${x}px,${y}px) scale(${scale})`,'important');witch.style.setProperty('opacity','1','important');heading.style.setProperty('transform','none','important');
-  const facing=smooth(turnProgress)*(1-smooth((time-6500)/500));heading.style.setProperty('opacity',1-facing,'important');front.setAttribute('opacity',facing);trail.setAttribute('opacity',actualTime>=flightStart&&time<5000?.8*(1-facing):0);
+  const facing=smooth(turnProgress)*(1-smooth((time-11450)/500));heading.style.setProperty('opacity',1-facing,'important');front.setAttribute('opacity',facing);trail.setAttribute('opacity',actualTime>=flightStart&&time<5000?.8*(1-facing):0);
   const hand=point(startX+95,270),door=point(1060,650);let ball;
   if(time<2000)ball=hand;
   else {const p=smooth((time-2000)/1500);ball={x:mix(hand.x,door.x,p),y:mix(hand.y,door.y,p)-Math.sin(p*Math.PI)*80}}
