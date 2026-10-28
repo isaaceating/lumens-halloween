@@ -59,3 +59,12 @@
 #detailDialog .media-thumb{width:52px;height:48px}
 #detailDialog .close{z-index:3}
 @media(max-width:800px){#detailDialog{padding:10px;width:98vw;height:97dvh;max-height:97dvh}#detailDialog .lightbox-copy h2{font-size:19px}#detailDialog .media-thumb{width:44px;height:40px}}
+/* Published awards lead each card, before the media, with a clearly visible frame. */
+.cards .winner-card{border:3px solid var(--award);padding:17px;background:linear-gradient(155deg,#35233e,#211a2d);box-shadow:inset 0 0 0 3px #17111f,0 0 0 1px #201525,0 8px 24px #25132930}
+.award-header{display:flex;align-items:center;gap:13px;min-height:88px;margin:-17px -17px 16px;padding:16px;background:linear-gradient(110deg,#382640,#63452f);border-bottom:2px solid var(--award);border-radius:10px 10px 0 0}
+.award-medal{display:grid;place-items:center;flex:0 0 48px;height:56px;background:var(--award);color:#211527;font:bold 30px Georgia,serif;clip-path:polygon(50% 0,91% 20%,100% 65%,76% 100%,50% 84%,24% 100%,0 65%,9% 20%);text-shadow:0 1px #fff8}
+.award-kicker{display:block;color:#f3debf;letter-spacing:3px;font-size:11px;margin-bottom:5px}
+.cards .winner-card .award-ribbon{background:none;border:0;padding:0;margin:0;font-size:24px;line-height:1.4;color:var(--award);text-shadow:0 2px 3px #110a1c}
+.cards .winner-card .contestant-name{font-size:23px;font-weight:700;margin:14px 0 7px}.cards .winner-card .result-count{font-size:32px;font-weight:800;margin:0}
+@media(max-width:650px){.cards .winner-card .award-ribbon{font-size:23px}}
+.award-header{width:calc(100% + 34px);height:auto;justify-content:flex-start;flex-wrap:nowrap}
