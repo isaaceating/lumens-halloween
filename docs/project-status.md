@@ -195,3 +195,11 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 - 已通過 26 項測試，包含實際 MOV→H.264/AAC MP4、封面產生、超長影片拒絕、影片資格綁定、同票及獎項覆寫、既有投票隱私與 RESET。
 - 隔離本機 4184 假資料完成瀏覽器上傳、轉檔、儲存、實際播放、照片切換、本人確認及工號變更清除、投票、獎項修改與公布。390px／1440px 排版檢查，修正影片固有高度溢出及燈箱文字對比。9 秒演出完成回復且互動呼吸燈停止。未操作正式活動投票／重設／公布。
 - 正式部署尚待完成；iPhone 真機錄影檔與真機 Safari 未實測，現有測試為合成 MOV 與桌面瀏覽器響應式模式。
+
+### v1.14 正式部署驗證（2026-10-28）
+- 功能 commit a9b1d5b，tag v1.14，已推送 main。GitHub Validate application 40709402687、40709402562 success；Pages 40710072390 success。
+- Firebase Functions 部署成功；正式公開 API HTTP 200、apiVersion 1.14.0。正式活動保持 ended／published=false，公開結果仍隱藏；未重設、改票或公布。
+- 七個正式前端檔案逐檔與本機版本比對一致（site-config、live、admin、awakening、hero.css、live.css、index）。正式活動已結束，因此沒有為驗證而重新開啟上傳；雲端轉檔實際上傳留待下一次主辦準備，轉檔程式已在本機與 Linux CI 通過。
+
+- 正式站瀏覽器驗證：完整載入、9 秒演出結束復原、入場按鈕顯示且互動按鈕不再呼吸；活動公告與原有三張照片正常，未公布結果不顯示姓名與票數。瀏覽器無 console error。截圖保存於 Git 忽略的 outputs/v114/production.png。
+- 首次瀏覽器載入曾出現角色圖失敗；重新載入後魔女、幽靈與居民均正常顯示，無程式例外。
