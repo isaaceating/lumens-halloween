@@ -293,3 +293,9 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 - 隔離本機瀏覽器首次準備 488ms、再次開啟 380ms；圖片 transferSize 從 11,820,234 bytes 降為 0，為本機單次驗證，非正式網路效能保證。
 - 控制素材 503：進度停留 92%，重試後接續 100% 且按鈕可用；延遲 9 秒素材確認真實等待。手機寬度 375px 無水平溢出。演出完成回復正常；第 10 秒 Luna 仍固定正面於塔前。
 - 部署待本次提交推送後驗證；API 維持 1.14.0，無後端或正式資料操作。
+
+### v1.19 正式部署驗證（2026-10-29）
+- 發布 commit de8de05，tag v1.19；Pages workflow 40742840023 成功，CI 40742814492／40742814115 成功。
+- 正式 index、hero-assets、hero.css、motion、awakening、painted、live、live.css、site-config 與本機發布內容一致。
+- 正式瀏覽器看到 7% 載入進度，完成至 100% 後喚醒按鈕可用；重新整理同樣完成至 100%。未提交任何票或修改正式活動資料。
+- 截圖 outputs/v119/production.png、outputs/v119/mobile-progress.png（後者實際為桌面慢速載入圖）為 Git 忽略的本機驗證輸出。
