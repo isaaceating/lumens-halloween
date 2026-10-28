@@ -177,3 +177,7 @@ Local main / 0e61404，保留既有未提交 v1.11 工作，未 commit/push/depl
 ### 2026-10-28 v1.12 發布準備
 Local D:/Codex-Projects/lumens-halloween，main，基底 db56105；無 worktree。已完成 F009。21 項自動測試通過（含隔離完整活動、重設後再次投票、錯誤／過期／並行重設）；語法檢查與白名單建置通過。
 本機隔離站 4182 瀏覽器驗收：3.5 秒後展開、13 秒後 wake-level/cat-form 為 0、重播保持展開、刷新／後台返回保持入場、390×844 無水平溢出、RESET 未輸入時禁用／輸入後啟用／取消。未在正式站投票或重設；未測實機手機。部署完成後補發布證據。
+
+### 2026-10-28 v1.12 正式發布完成
+發布 commit edf8ff3d2315a69f4c70f4b845166d873359fb27、tag v1.12 已推送。Firebase Functions 更新成功，原 API 網址回應 apiVersion 1.12.0；正式活動 scheduled、published=false、generation=0（未執行重設）。Pages run 40659922842 成功，含遠端 21 項測試與建置：https://github.com/isaaceating/lumens-halloween/actions/runs/40659922842 。
+正式首頁、site-config、awakening、live、admin 檔案與發布來源比對一致（正規化換行）。正式瀏覽器驗證初始隱藏、喚醒後入場、10/30 15:00／30 分鐘公告與三位候補、演出收尾按鈕恢復；console 無錯誤。截圖 outputs/v1.12-production.png（不納入 Git）。本機暫停驗證時鐘固定 155ms，恢復正常。未操作正式投票、公布、RESET 或名單。
