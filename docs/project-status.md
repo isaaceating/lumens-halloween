@@ -299,3 +299,9 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 - 正式 index、hero-assets、hero.css、motion、awakening、painted、live、live.css、site-config 與本機發布內容一致。
 - 正式瀏覽器看到 7% 載入進度，完成至 100% 後喚醒按鈕可用；重新整理同樣完成至 100%。未提交任何票或修改正式活動資料。
 - 截圖 outputs/v119/production.png、outputs/v119/mobile-progress.png（後者實際為桌面慢速載入圖）為 Git 忽略的本機驗證輸出。
+## v1.20 本機驗收（2026-10-29）
+來源：本次使用者 Hero 文案配色、立體陰影與南瓜前後景授權。Local main，D:/Codex-Projects/lumens-halloween；基底 167f2b8。
+- 副標橘金漸層、說明淡薰衣草紫及立體深色陰影完成；南瓜前中後景共 30 顆，前景 6 顆，未增加下載素材。
+- npm run check、npm test（38/38）、npm run build、git diff --check 通過；含旋轉前景南瓜全路徑臉部保護區碰撞檢查與無損素材比對。
+- 本機桌面／375px 手機版視覺驗收，無水平溢出；9.72 秒定格確認 Luna 臉部清楚、前景南瓜掠過披風附近。暫停後可繼續演出，演出長度仍 12.7＋1 秒。
+- 截圖 outputs/v120/pumpkin-depth.png 為忽略的本機驗證產物；正式部署待本次推送後驗證。API 1.14.0 不變，未修改正式資料。

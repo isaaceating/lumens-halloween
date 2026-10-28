@@ -148,3 +148,5 @@ hero-assets.js 以 Image.decode 等候完整圖片可用，先背景後三工作
 ## v1.19（2026-10-29）
 hero-assets.js 使用四工作者去重佇列與並行字型準備，移除背景解碼前置相依。Map 保存同次頁面成功解碼素材供重試使用；全部工作 settle 後才開放重試。百分比分母固定為唯一圖片數＋字型項，成功解碼／字型 ready 才增加，完成後同步填入 SVG href 並設 hero-ready。進度以 CSS 更新，無新圖檔或持續 frame loop。
 Luna 飛入 3700ms、到位 5200ms、轉向 5400–5750ms、集氣至 6250ms；最後南瓜於 11700ms 結束才回程，12700ms 起淡出、13700ms 完成。保留 actor 與 lighting 分離及場景暫停。
+## v1.20（2026-10-29）
+awakening.js 分出 pumpkinSpec／pumpkinPosition 純函式；SVG 後、中景群組置於 witch-flight 前，前景群組置於其後，維持原有 30 顆粒子與素材去重。前景軌跡以 Luna 正面固定位置設計；測試以旋轉外接圓半徑檢查每 5ms 位置，避免與臉部保護矩形相交。既有暫停、清除粒子及演出 cue 保留。Hero CSS 以文字漸層／小幅陰影呈現厚度，無額外下載素材。

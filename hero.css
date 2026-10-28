@@ -233,3 +233,8 @@ html:not(.hero-ready) body .hero *,html:not(.hero-ready) body .hero *::before,ht
 .hero-load-progress b:before{content:'';position:absolute;left:5px;top:-3px;width:3px;height:4px;background:#a8a16a;transform:rotate(20deg)}
 .hero-load-progress b:after{content:'';position:absolute;left:3px;top:4px;width:2px;height:3px;background:#341c28;box-shadow:4px 0 #341c28,2px 4px #341c28}
 @media(prefers-reduced-motion:reduce){.hero-load-progress i,.hero-load-progress b{transition:none}}
+/* Warm raised lettering, with crisp depth rather than a diffuse glow. */
+.hero-intro .hero-sub{color:#ffb65c;text-shadow:0 1px 0 #ffe3a0,0 2px 0 #8b3f29,0 3px 0 #482039,0 5px 7px #100a21,1px 0 2px #160d24,-1px 0 2px #160d24}
+@supports(background-clip:text){.hero-intro .hero-sub{background:linear-gradient(180deg,#ffe4a0 12%,#ffc06b 45%,#f5913e 85%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:none;filter:drop-shadow(0 1px 0 #a45531) drop-shadow(0 2px 0 #482039) drop-shadow(0 3px 3px #100a21)}.hero-sub [lang=en]{background:inherit;background-clip:text;-webkit-background-clip:text}}
+.hero-intro .hero-description{color:#dfc5ff;text-shadow:0 1px 0 #482850,0 2px 0 #21122e,0 3px 5px #090612,1px 0 2px #160d24,-1px 0 2px #160d24}
+.pumpkin-burst{pointer-events:none}

@@ -1,0 +1,4 @@
+const test=require('node:test'),assert=require('node:assert/strict'),{pumpkinSpec,pumpkinPosition}=require('../awakening.js');
+test('thirty pumpkins span three depths without adding assets or delaying the finale',()=>{const p=Array.from({length:30},(_,i)=>pumpkinSpec(i));assert.equal(p.filter(p=>p.depth==='front').length,6);assert.ok(p.some(p=>p.depth==='back'));assert.ok(p.some(p=>p.depth==='middle'));assert.ok(Math.abs(Math.max(...p.map(p=>p.delay))-1.45)<1e-9);});
+test('rotating foreground pumpkins never overlap the protected face rectangle throughout flight',()=>{for(let i=0;i<30;i++){const p=pumpkinSpec(i);if(p.depth!=='front')continue;for(let age=0;age<=3.5;age+=.005){const {x,y}=pumpkinPosition(p,age),r=p.size/Math.sqrt(2);assert.ok(x+r<1050||x-r>1155||y+r<140||y-r>250,`face collision particle ${i} at ${age}`);}}});
+
