@@ -7,9 +7,9 @@ function castleShowTiming(actualTime){
 }
 // Front paths pass beside Luna's face, then across her cloak / broom height.
 function pumpkinSpec(i){
- const depth=i%5===0?'front':i%2===0?'middle':'back';
+ const depth=i%2===0?'front':i%3===0?'middle':'back';
  const factor=depth==='front'?1.22:depth==='middle'?1:.78;
- return {depth,size:(40+(i%6)*12)*factor,delay:i*.05,vx:depth==='front'?(i%10===0?-55-i:160+i):((i*137%29)-14)*19*factor,vy:(-90-(i%5)*16)*factor,gravity:depth==='front'?112:depth==='middle'?95:82,spin:(i%2?1:-1)*(20+i%4*12)};
+ return {depth,size:depth==='front'?76+(i%5)*14:(40+(i%6)*12)*factor,delay:i*.05,vx:depth==='front'?(i%6===0?165+i:-65-(i%6)*8):((i*137%29)-14)*19*factor,vy:(-90-(i%5)*16)*factor,gravity:depth==='front'?112:depth==='middle'?95:82,spin:(i%2?1:-1)*(20+i%4*12)};
 }
 function pumpkinPosition(p,age){return {x:1050+p.vx*age,y:30+p.vy*age+p.gravity*age*age};}
 if(typeof module==='object'&&module.exports)module.exports={castleShowTiming,pumpkinSpec,pumpkinPosition};
