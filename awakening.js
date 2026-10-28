@@ -12,7 +12,7 @@ function pumpkinSpec(i){
  const factor=depth==='front'?1.22:depth==='middle'?1:.78;
  return {depth,size:depth==='front'?76+(i%5)*14:(40+(i%6)*12)*factor,delay:i*.05,vx:depth==='front'?(k%2===0?-60-(k*17%70):170+(k*23%55)):((i*137%29)-14)*19*factor,vy:depth==='front'?-105-(k*31%90):(-90-(i%5)*16)*factor,gravity:depth==='front'?100+(k*7%25):depth==='middle'?95:82,spin:((depth==='front'?k:i)%2?1:-1)*(20+i%4*12)};
 }
-function pumpkinPosition(p,age){const drift=p.depth==='front'&&age>1.4?1.4+(1-Math.exp(-(age-1.4)*.65))/.65:age;return {x:1050+p.vx*drift,y:30+p.vy*age+p.gravity*age*age};}
+function pumpkinPosition(p,age){const drift=p.depth==='front'&&age>1.4?1.4+(1-Math.exp(-(age-1.4)*.65))/.65:age;const spread=p.vx*drift;const offset=spread>210?210+(spread-210)/(1+(spread-210)/90):spread;return {x:1050+offset,y:30+p.vy*age+p.gravity*age*age};}
 if(typeof module==='object'&&module.exports)module.exports={castleShowTiming,pumpkinSpec,pumpkinPosition};
 else (() => {
  const hero=document.querySelector('.hero'),stage=document.querySelector('.inhabitants>svg'),button=document.querySelector('#castSpell'),root=document.documentElement;
