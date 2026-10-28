@@ -233,3 +233,11 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 - 12 秒 60 fps 合成影片完整播放：720 frames／376 dropped／0 corrupted；UI RAF 約 57.7 fps。對照前次暫停背景 393 dropped，環境仍有大量掉幀，不宣稱消除影片掉幀或實機 60 fps。
 - 瀏覽器確認媒體切換、定時更新保留照片 2、手動暫停跨離開 Hero／開關燈箱後仍保留，返回可恢復；390×844 手機 Hero 範圍正常；未發現前端 console 錯誤。
 - 正式活動未重設、未試投、未變更參賽者；部署紀錄待補。
+
+### v1.15 發布完成（2026-10-29）
+- 功能 commit／tag：6a95588／v1.15；已推送 main 與 tag。
+- GitHub Validate application：40727594538、40727594656 成功；Pages：40727644547 成功。
+- 正式站 8 個程式檔及 12 張 WebP 共 20 檔與本機逐檔相符；API HTTP 200、1.14.0。未部署或修改 Firebase。
+- 正式瀏覽器完整甦醒後回復 hero 未喚醒 class、入場內容維持展開，無缺圖及 console error；截圖 outputs/v115/production.png（本機忽略）。
+- 補測演出中途手動暫停：時間固定 355ms，恢復後接續 454ms，沒有把暫停時間算入演出。
+- 已完成發布；實際參賽影片與現場設備尚未提供，仍待實機播放驗收，不能宣稱所有裝置無掉幀。
