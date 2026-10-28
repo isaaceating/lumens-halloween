@@ -261,3 +261,7 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 - 呼吸峰值光環加至 4px，外部柔光擴散 8px；入場後仍停止呼吸，hover／減少動態與暫停規則不變。
 - check、31 項測試及 build 通過；測試包含全亮後 1200ms 停留、角色後段時間與 1000ms 淡出。瀏覽器確認完整演出收尾回復、入場保留；桌面公告及手機無水平溢出，無 console error。
 - 前端 1.17.0，API 保持 1.14.0；未操作正式資料。
+
+### v1.17.1 使用者補充圖層（2026-10-29）
+- v1.17 提交後使用者補充「魔女在前景、黑貓在後」；painted.js 將 Luna 移至角色 SVG 最後繪製，awakening 保留此順序。
+- 前端追加 1.17.1，不改寫既有 v1.17 tag。31 項測試、check、build 再次通過；瀏覽器巡航與施法時 cat layer 6／Luna layer 14，Luna 在前。
