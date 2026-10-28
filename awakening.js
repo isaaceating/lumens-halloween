@@ -60,6 +60,5 @@
  function startShow(){if(running)return;if(reduced.matches||root.classList.contains('motion-off')){revealParty();finish();return}dialogue(null);running=true;elapsed=0;nextSpark=0;last=performance.now();hero.classList.remove('castle-awake');hero.style.setProperty('--cat-form',0);hero.style.setProperty('--wake-level',0);hero.classList.add('awakening');button.disabled=true;button.textContent='古堡甦醒中…';render(0);raf=requestAnimationFrame(frame)}
  window.addEventListener('scene-motion-change',()=>{if(!running)return;if(!window.SceneMotion.heroActive){cancelAnimationFrame(raf);raf=0;}else if(!raf){last=performance.now();raf=requestAnimationFrame(frame);}});
  button.addEventListener('click',startShow);
- document.querySelector('#replayCastle').addEventListener('click',()=>startShow());
  reduced.addEventListener('change',()=>{if(reduced.matches&&running){revealParty();finish()}});
 })();

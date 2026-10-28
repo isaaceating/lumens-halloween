@@ -1,4 +1,4 @@
-# Lumens Halloween · v1.15
+# Lumens Halloween · v1.16
 
 Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配 Firebase 後端；正式功能已接上 Firebase，GitHub Pages 已上線。
 
@@ -24,7 +24,7 @@ Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配
 
 本機狀態與照片保存在 private/，重新啟動仍保留。它們不會自動上傳至 Firebase。不可把 private/、密碼、秘密金鑰或員工名單提交至 Git。
 
-版本標記：Git tag `v1.15`，前端 `1.15.0`、相容 API `1.14.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
+版本標記：Git tag `v1.16`，前端 `1.16.0`、相容 API `1.14.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
 
 ## 功能規則
 

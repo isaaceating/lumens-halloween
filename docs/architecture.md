@@ -134,3 +134,6 @@ publicView 僅在 published 且 clock.status=ended 時回傳真實候選者 name
 - live.js 以 candidate ID 與完整顯示狀態簽章快取卡片，只替換改變的節點；refresh 防止重疊請求。圖片 lazy/async，影片仍只在燈箱載入。
 - scripts/visual-assets.json 記錄來源及精確裁切；node scripts/optimize-assets.cjs 重建無損 WebP，tests/visual-assets.test.cjs 比較透明度及所有可見像素。原始 PNG 留存以供後續設計。
 - 前端 v1.15／API v1.14 分開發布；本次僅 Pages，不部署 Functions 或修改正式資料。
+
+## v1.16（2026-10-29）
+index.html 新增 hero-intro 格線容器，桌面文案／操作兩欄、手機單欄；未入場投票 CTA 以 visibility:hidden 保留位置並阻止點擊／焦點。移除 replayCastle DOM 與 awakening.js 綁定，保留 castSpell 及原 sessionStorage 入場邏輯；API 不變。
