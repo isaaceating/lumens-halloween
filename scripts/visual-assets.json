@@ -1,0 +1,80 @@
+[
+  {
+    "source": "castle-title-blank.png",
+    "output": "castle-title-blank.webp"
+  },
+  {
+    "source": "lumens-castle-v6.png",
+    "output": "lumens-castle-v6.webp"
+  },
+  {
+    "source": "ghost-dormant.png",
+    "output": "ghost-dormant.webp"
+  },
+  {
+    "source": "friendly-ghost-v5.png",
+    "output": "friendly-ghost-v5.webp"
+  },
+  {
+    "source": "slender-cat.png",
+    "output": "slender-cat.webp"
+  },
+  {
+    "source": "evil-pumpkin-lantern.png",
+    "output": "evil-pumpkin-lantern.webp"
+  },
+  {
+    "source": "witch-casting-front.png",
+    "output": "witch-casting-front.webp"
+  },
+  {
+    "source": "castle-characters-v4.png",
+    "output": "sprite-witch.webp",
+    "crop": [
+      645,
+      455,
+      0,
+      0
+    ]
+  },
+  {
+    "source": "castle-characters-v4.png",
+    "output": "sprite-cat-awake.webp",
+    "crop": [
+      360,
+      415,
+      670,
+      40
+    ]
+  },
+  {
+    "source": "castle-characters-v4.png",
+    "output": "sprite-pumpkin.webp",
+    "crop": [
+      615,
+      525,
+      0,
+      485
+    ]
+  },
+  {
+    "source": "castle-characters-v4.png",
+    "output": "sprite-skeleton.webp",
+    "crop": [
+      420,
+      535,
+      625,
+      475
+    ]
+  },
+  {
+    "source": "castle-characters-v4.png",
+    "output": "sprite-cat-asleep.webp",
+    "crop": [
+      410,
+      420,
+      1120,
+      540
+    ]
+  }
+]

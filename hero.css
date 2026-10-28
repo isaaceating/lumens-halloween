@@ -1,5 +1,5 @@
 /* One viewport, one continuous illustrated world. All scene layers share 3:2. */
-.hero{height:100svh;min-height:0;max-height:1100px;padding:0 5%;isolation:isolate;background:#15121e url('assets/lumens-castle-v6.png') center/cover no-repeat;display:flex;align-items:center}
+.hero{height:100svh;min-height:0;max-height:1100px;padding:0 5%;isolation:isolate;background:#15121e url('assets/lumens-castle-v6.webp') center/cover no-repeat;display:flex;align-items:center}
 .hero:before{z-index:1;background:linear-gradient(90deg,#100d19e8, #100d1999 25%,transparent 55%);pointer-events:none}
 .castle-scene{top:50%!important;left:auto!important;right:0!important;width:min(100vw,150svh);max-width:none;height:auto!important;transform:translateY(-50%)!important;transition:none}
 .castle-art{filter:saturate(.83)}
@@ -191,3 +191,11 @@ html.castle-entered .hero-actions .castle-key:not(:hover):not(:focus-visible):no
 @media(min-width:801px) and (min-height:700px){.hero-copy{transform:translateY(-45px)}}
 @media(max-width:800px){.hero-sub{font-size:26px}.hero-description{font-size:17px}.hero-copy{transform:none}}
 @media(max-height:650px) and (max-width:800px){.hero-sub{font-size:22px}}
+
+/* v1.15: preserve every visible effect; pause only hidden or covered work. */
+:root.hero-suspended body .hero *,:root.hero-suspended body .hero *::before,:root.hero-suspended body .hero *::after,
+:root.modal-suspended body main *,:root.modal-suspended body main *::before,:root.modal-suspended body main *::after,
+:root.page-suspended body *,:root.page-suspended body *::before,:root.page-suspended body *::after{animation-play-state:paused!important}
+.hero-suspended .hero .castle-scene{will-change:auto}
+.hanging-sign,.entry-vote{will-change:transform}
+.awakening-orb{left:0;top:0;will-change:transform,opacity}

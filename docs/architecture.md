@@ -127,3 +127,10 @@ publicView 僅在 published 且 clock.status=ended 時回傳真實候選者 name
 - 候選人僅能綁定同一候選人的 ready 工作，影音發布仍限活動開始前。公開資料含 video URL/poster/duration，不含上傳片段或工號。舊照片資料向後相容。
 - awards 覆寫獨立於 votes；自動獎項依有效名次，手動獎項可獨立指定；RESET 同時清除覆寫。公布後更動需要明確確認。
 - 本機伺服器支援 MP4 Range；正式影片由 Firebase Storage 傳送。CI 安裝 functions dependencies 並執行實際 MOV 轉檔測試。
+
+## v1.15（2026-10-29）
+- motion.js 在 app.js 後建立 SceneMotion，IntersectionObserver、document visibility、dialog open 與 motion-off 決定運算狀態；CSS 與 Canvas／甦醒 RAF 共同暫停，保留演出時鐘與使用者偏好。
+- awakening.js 每幀讀取一次 stage CTM，共用反矩陣；光球以 transform 定位，避免 left/top 帶來布局更新。完整演出、粒子數與發光參數維持。
+- live.js 以 candidate ID 與完整顯示狀態簽章快取卡片，只替換改變的節點；refresh 防止重疊請求。圖片 lazy/async，影片仍只在燈箱載入。
+- scripts/visual-assets.json 記錄來源及精確裁切；node scripts/optimize-assets.cjs 重建無損 WebP，tests/visual-assets.test.cjs 比較透明度及所有可見像素。原始 PNG 留存以供後續設計。
+- 前端 v1.15／API v1.14 分開發布；本次僅 Pages，不部署 Functions 或修改正式資料。
