@@ -170,3 +170,16 @@ html:not(.castle-entered) #partyContent,html:not(.castle-entered) .entry-vote{di
 footer{justify-content:flex-start;gap:22px}footer>span{font-size:12px;line-height:1.8}
 @media(max-width:800px){.hero-actions{gap:10px}.hero-actions .castle-key{font-size:11px;padding-left:18px;padding-right:18px}footer{flex-wrap:wrap;gap:8px 18px}}
 @media(prefers-reduced-motion:reduce){.castle-entered #partyContent{animation:none}}
+/* Larger type and targets, with a steady readable label over the breathing fill. */
+.hero-sub{font-size:clamp(24px,2.3vw,32px)}.hero-description{font-size:18px;max-width:460px}
+.hero-actions .castle-key{font-size:15px;min-height:58px;padding:18px 22px 18px 38px}
+.hero-actions .entry-vote{font-size:17px;font-weight:700;min-height:58px;padding:18px 29px;background:#ffc178;color:#302034;box-shadow:0 4px 22px #ff9d5140}
+.hero-actions .entry-vote:not(:hover):not(:focus-visible){animation:vote-invitation 1s ease-in-out infinite}
+.hero-actions .entry-vote:hover,.hero-actions .entry-vote:focus-visible{background:#ffcc8d;box-shadow:0 0 26px #f3a94e88}
+@keyframes vote-invitation{0%,100%{background-color:#eaa265;box-shadow:0 3px 12px #f3a94e33}50%{background-color:#ffcc8d;box-shadow:0 4px 25px #ffb96480}}
+.casting-pumpkin{filter:drop-shadow(0 0 12px #ffc36b)}
+footer{padding:6px 6%;gap:16px}.footer-logo{height:40px}
+.closing{padding:28px 20px 30px}.closing h2{margin:10px 0 20px}
+@media(max-width:800px){.hero-sub{font-size:24px}.hero-description{font-size:15px}.hero-actions{gap:10px}.hero-actions .castle-key{font-size:13px;min-height:51px;padding:15px 14px 15px 29px}.hero-actions .entry-vote{font-size:15px;min-height:51px;padding:15px 20px}footer{padding:5px 6%;gap:3px 14px}.closing{padding:23px 18px 27px}}
+@media(max-width:370px){.hero-actions{gap:8px}.hero-actions .castle-key{font-size:12px;padding-right:10px}.hero-actions .entry-vote{font-size:14px;padding-left:15px;padding-right:15px}.hero-sub{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.hero-actions .entry-vote{animation:none!important}}

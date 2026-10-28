@@ -181,3 +181,6 @@ Local D:/Codex-Projects/lumens-halloween，main，基底 db56105；無 worktree�
 ### 2026-10-28 v1.12 正式發布完成
 發布 commit edf8ff3d2315a69f4c70f4b845166d873359fb27、tag v1.12 已推送。Firebase Functions 更新成功，原 API 網址回應 apiVersion 1.12.0；正式活動 scheduled、published=false、generation=0（未執行重設）。Pages run 40659922842 成功，含遠端 21 項測試與建置：https://github.com/isaaceating/lumens-halloween/actions/runs/40659922842 。
 正式首頁、site-config、awakening、live、admin 檔案與發布來源比對一致（正規化換行）。正式瀏覽器驗證初始隱藏、喚醒後入場、10/30 15:00／30 分鐘公告與三位候補、演出收尾按鈕恢復；console 無錯誤。截圖 outputs/v1.12-production.png（不納入 Git）。本機暫停驗證時鐘固定 155ms，恢復正常。未操作正式投票、公布、RESET 或名單。
+
+### 2026-10-28 v1.13 發布準備
+Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完成。22 項自動測試、語法與白名單建置通過。隔離站 4183 使用假名稱／照片，瀏覽器確認公布前卡片與相簿隱藏選手名、公布後兩處顯示。390×844 無水平溢出、兩按鈕完整；桌面按鈕字 15／17px，Footer 高度 52px。4568ms 可見飛向塔尖南瓜，front width=340.4（原370），11.3 秒後還原；console 無錯誤。未操作正式活動資料，未測實體手機。

@@ -115,3 +115,7 @@ hero.css / hero.js 在原插畫動畫層之後載入。角色互動使用 SVG �
 ## v1.12 入場與重設（2026-10-28）
 首頁以 html.castle-entered 控制 #partyContent 及投票 CTA；lumens-party-entered 僅存 sessionStorage，不是投票權限。10+3 秒使用單一演出時鐘，揭幕不改活動狀態。手動開始另記 startedAt，公告欄顯示實際開始。
 POST /admin/reset 沿用主辦 session 與 Firestore 單文件交易，要求 revision、expectedTotalVotes、confirmation=RESET、未來 scheduledAt 及合法 durationMinutes；重設票與狀態、遞增 generation，保留其他內容。publicView 僅新增 generation/startedAt，不洩漏名單或票數；前台發現 generation 改變會解除本頁已投票標記並關閉過期對話。部署不遷移或重設任何資料。
+
+## v1.13（2026-10-28）
+publicView 僅在 published 且 clock.status=ended 時回傳真實候選者 name；其他階段以參賽者編號代稱，costume／description／已發布照片維持公開。adminView 保留原始候選者資料。前台標題、alt、確認視窗只使用 costume，姓名另於結果公布顯示。資料庫欄位未改名、無遷移。
+演出 actualTime 依各段長度映射原 cue 時間，僅壓縮指定行程與集氣；總計 11300ms。塔尖投射物使用既有南瓜 PNG 與 SVG 短尾光，結束一併清理。正面圖片縮小與手掌定位同步 0.92 倍。
