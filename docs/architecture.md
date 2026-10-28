@@ -119,3 +119,11 @@ POST /admin/reset 沿用主辦 session 與 Firestore 單文件交易，要求 re
 ## v1.13（2026-10-28）
 publicView 僅在 published 且 clock.status=ended 時回傳真實候選者 name；其他階段以參賽者編號代稱，costume／description／已發布照片維持公開。adminView 保留原始候選者資料。前台標題、alt、確認視窗只使用 costume，姓名另於結果公布顯示。資料庫欄位未改名、無遷移。
 演出 actualTime 依各段長度映射原 cue 時間，僅壓縮指定行程與集氣；總計 11300ms。塔尖投射物使用既有南瓜 PNG 與 SVG 短尾光，結束一併清理。正面圖片縮小與手掌定位同步 0.92 倍。
+
+## v1.14 影音與獎項（2026-10-28）
+- 主辦登入後以 2 MiB 分塊上傳影片，伺服器驗證片段序號、大小及完整性；Storage video-uploads/ 保存私有暫存。Firestore media-jobs/ 管理上傳／轉檔／就緒／失敗，不對公共事件提供工作資料。
+- finalize 在 Functions 執行 ffprobe＋ffmpeg：限 60 秒、最高 8K 來源，限制輸入容器與本機協定，縮放至最長 1080、H.264/yuv420p＋AAC、faststart MP4；擷取 JPEG 封面。成功清除上傳片段；中斷或失敗片段尚未自動回收，需後續維運清理。
+- Functions api：2 GiB、540 秒、concurrency 1、maxInstances 3，容納一次影片轉檔。片段每次小於既有請求上限，無公開 Storage 寫入規則。
+- 候選人僅能綁定同一候選人的 ready 工作，影音發布仍限活動開始前。公開資料含 video URL/poster/duration，不含上傳片段或工號。舊照片資料向後相容。
+- awards 覆寫獨立於 votes；自動獎項依有效名次，手動獎項可獨立指定；RESET 同時清除覆寫。公布後更動需要明確確認。
+- 本機伺服器支援 MP4 Range；正式影片由 Firebase Storage 傳送。CI 安裝 functions dependencies 並執行實際 MOV 轉檔測試。

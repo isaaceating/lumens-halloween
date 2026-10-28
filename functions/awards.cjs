@@ -1,0 +1,5 @@
+'use strict';
+const AWARDS=['最佳裝扮獎','最佳創意獎','最佳氣氛獎'];
+function results(s){const list=s.candidates.map(c=>({id:c.id,name:c.name,votes:Object.values(s.votes).filter(v=>v.candidateId===c.id).length}));return list.map(r=>{const rank=1+list.filter(x=>x.votes>r.votes).length,override=s.awards?.[r.id]||{};return {...r,automaticRank:rank,rank:override.rank??rank,award:override.award??AWARDS[(override.rank??rank)-1]??'',manual:!!(override.rank||override.award!==undefined)};});}
+function update(s,body,C){C.assert(!s.published||body.confirmPublished===true,'結果已公布，請確認要更新已公布獎項',409);C.assert(Array.isArray(body.awards)&&body.awards.length<=s.candidates.length,'獎項資料不正確');const overrides={};for(const item of body.awards){C.assert(s.candidates.some(c=>c.id===item.id)&&!overrides[item.id],'參賽編號不正確或重複');C.assert(item.rank===null||(Number.isInteger(item.rank)&&item.rank>=1&&item.rank<=3),'名次須為自動或 1–3');C.assert(item.award===null||AWARDS.includes(item.award)||item.award==='','獎項不正確');overrides[item.id]={...(item.rank!==null?{rank:item.rank}:{}),...(item.award!==null?{award:item.award}:{})};}s.awards=overrides;s.revision++;}
+module.exports={AWARDS,results,update};

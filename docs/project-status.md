@@ -188,3 +188,10 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 891f5b8；F010 已完�
 ### 2026-10-28 v1.13 正式發布完成
 發布 commit e33fac0cbd0e4497a16ff47ebe85a0a5d9b17695，tag v1.13 已推送。Functions 更新成功，正式 API 1.13.0，活動 scheduled／published=false／generation=0。Pages run 40667091437 成功：https://github.com/isaaceating/lumens-halloween/actions/runs/40667091437 。首頁、site-config、awakening、hero.css、live.css、live.js、admin.js 與發布來源比對一致。
 正式瀏覽器確認喚醒、收尾、入場、集中公告／倒數及三位候補變裝標題，console 無錯誤。截圖 outputs/v1.13-production.png（不入 Git）。正式活動資料未重設、未投票或公布；完整公布前後姓名測試於隔離假資料環境完成。
+
+## 2026-10-28 · v1.14 實作與本機驗收
+- Local：D:/Codex-Projects/lumens-halloween，main，基底 6f5aabc，無新增 worktree。
+- 已完成 v1.14 功能，詳細需求見 features.md，影音架構見 architecture.md。
+- 已通過 26 項測試，包含實際 MOV→H.264/AAC MP4、封面產生、超長影片拒絕、影片資格綁定、同票及獎項覆寫、既有投票隱私與 RESET。
+- 隔離本機 4184 假資料完成瀏覽器上傳、轉檔、儲存、實際播放、照片切換、本人確認及工號變更清除、投票、獎項修改與公布。390px／1440px 排版檢查，修正影片固有高度溢出及燈箱文字對比。9 秒演出完成回復且互動呼吸燈停止。未操作正式活動投票／重設／公布。
+- 正式部署尚待完成；iPhone 真機錄影檔與真機 Safari 未實測，現有測試為合成 MOV 與桌面瀏覽器響應式模式。

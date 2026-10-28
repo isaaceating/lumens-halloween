@@ -183,3 +183,11 @@ footer{padding:6px 6%;gap:16px}.footer-logo{height:40px}
 @media(max-width:800px){.hero-sub{font-size:24px}.hero-description{font-size:15px}.hero-actions{gap:10px}.hero-actions .castle-key{font-size:13px;min-height:51px;padding:15px 14px 15px 29px}.hero-actions .entry-vote{font-size:15px;min-height:51px;padding:15px 20px}footer{padding:5px 6%;gap:3px 14px}.closing{padding:23px 18px 27px}}
 @media(max-width:370px){.hero-actions{gap:8px}.hero-actions .castle-key{font-size:12px;padding-right:10px}.hero-actions .entry-vote{font-size:14px;padding-left:15px;padding-right:15px}.hero-sub{font-size:22px}}
 @media(prefers-reduced-motion:reduce){.hero-actions .entry-vote{animation:none!important}}
+
+/* v1.14: focus the invitation on voting after the castle opens. */
+html.castle-entered .hero-actions .castle-key:not(:hover):not(:focus-visible):not(:disabled){animation:none}
+.hero-sub,.hero-description{font-family:'Reggae One','Noto Serif TC',serif}
+.hero-sub{font-size:clamp(27px,2.5vw,36px)}.hero-description{font-size:20px;line-height:1.8}
+@media(min-width:801px) and (min-height:700px){.hero-copy{transform:translateY(-45px)}}
+@media(max-width:800px){.hero-sub{font-size:26px}.hero-description{font-size:17px}.hero-copy{transform:none}}
+@media(max-height:650px) and (max-width:800px){.hero-sub{font-size:22px}}
