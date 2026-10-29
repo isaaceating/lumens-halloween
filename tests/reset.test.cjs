@@ -5,13 +5,14 @@ async function setup(){
  s.employees=['TEST001','TEST002'].map(id=>C.keyFor(secret,'employee',id));
  s.employeeProfiles=Object.fromEntries(s.employees.map(key=>[key,{name:'測試同仁',department:'測試部'}]));
  s.candidates[0]={...s.candidates[0],name:'測試造型',photo:'/media/aa.jpg',photos:['/media/aa.jpg','/media/bb.jpg'],active:true};
+ s.candidates[1]={...s.candidates[1],photo:'/media/bb.jpg',active:true};
  const store=new LocalStore(null,{[C.EVENT]:s});let now=1000;
  const api=createApi({store,secret,passwordHash:C.passwordHash('isolated-test'),savePhoto:async()=>'',now:()=>now});
  const {token}=await api({method:'POST',path:'/login',body:{password:'isolated-test'}});
  const get=()=>api({method:'GET',path:'/admin/event',token});
  const post=(path,body)=>api({method:'POST',path,body,token});
  const control=async action=>post('/admin/control',{revision:(await get()).revision,action});
- const ballot=id=>post('/vote',{employeeId:id,candidateId:'01'});
+ const ballot=async id=>post('/vote',{employeeId:id,candidateIds:['01','02'],generation:(await get()).generation});
  const resetBody=async()=>{const v=await get();return {revision:v.revision,expectedTotalVotes:v.totalVotes,confirmation:'RESET',scheduledAt:200000,durationMinutes:30};};
  return {store,api,get,post,control,ballot,resetBody,advance:t=>now=t};
 }

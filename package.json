@@ -1,11 +1,11 @@
 {
   "name": "lumens-halloween",
-  "version": "1.22.0",
+  "version": "1.23.0",
   "private": true,
   "description": "Whimsical Halloween local visual demo",
   "scripts": {
     "dev": "node scripts/server.cjs",
-    "check": "node --check app.js && node --check magic.js && node --check haunted.js && node --check painted.js && node --check hero.js && node --check awakening.js && node --check scripts/preview.cjs && node --check live.js && node --check admin.js && node --check functions/index.cjs && node --check functions/api.cjs && node --check scripts/server.cjs && node --check functions/employees.cjs && node --check functions/awards.cjs && node --check functions/video.cjs && node --check functions/transcode.cjs && node --check functions/video-cloud.cjs && node --check scripts/video-local.cjs && node --check motion.js && node --check hero-assets.js",
+    "check": "node --check network.js && node --check app.js && node --check magic.js && node --check haunted.js && node --check painted.js && node --check hero.js && node --check awakening.js && node --check scripts/preview.cjs && node --check live.js && node --check admin.js && node --check functions/index.cjs && node --check functions/api.cjs && node --check scripts/server.cjs && node --check functions/employees.cjs && node --check functions/awards.cjs && node --check functions/video.cjs && node --check functions/transcode.cjs && node --check functions/video-cloud.cjs && node --check scripts/video-local.cjs && node --check motion.js && node --check hero-assets.js",
     "dev:visual": "node scripts/preview.cjs",
     "setup-local": "node scripts/setup-local.cjs",
     "test": "node --test tests/*.test.cjs",

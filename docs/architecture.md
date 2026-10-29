@@ -160,3 +160,9 @@ live.js 以 published AND ended 作得獎顯示條件；頂部 award-header／�
 
 ## v1.22（2026-10-29）
 pumpkinPosition 改依 Hero 寬高與塔尖螢幕座標計算，前景置於 Hero 獨立 pointer-events:none SVG，後中景轉回場景座標保持 Luna 前後層次。42 顆採低差異落點、錯開色調及發射時刻；CSS hue/saturation 與 SVG 寬高輪廓共用原始無損圖，不增加下載。姓名票數移入 award-header 的 award-identity，結果資料閘門不變。API 維持 1.14.0。
+
+## 連線恢復（2026-10-29，本機）
+network.js requestJson 以 AbortController + Promise.race 包住 fetch 和 JSON body；只負責一次請求、逾時中止及區分不確定結果，不自動 retry。live.js 為 event／lookup 加入手動恢復按鈕；pendingVote 捕捉原 payload 與 generation，禁止等待中另開投票，忽略 RESET 前的舊回應。僅在前端記憶體保留待確認票，無新 API 或個資持久化。build 白名單及語法檢查加入 network.js。
+
+## v1.23（2026-10-29）
+選票改為每個工號雜湊鍵下的 candidateIds 二元素陣列；同一次 Firestore transaction 完整驗證與保存，generation 阻擋重設前舊請求。統計相容舊 candidateId，但新投票 API 拒絕舊單票請求。admin totalVotes 保留投票人數語意（RESET 樂觀鎖），totalSelections 新增實際選票數。RESET 補齊缺少的第四候選人，不改動既有候選人、影音與資格名單。公開前台以 Set 選擇兩人，確認列與原身份核對視窗一次送出；後台只渲染被選取的編輯表單。

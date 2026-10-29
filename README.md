@@ -1,4 +1,4 @@
-# Lumens Halloween · v1.22
+# Lumens Halloween · v1.23
 
 Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配 Firebase 後端；正式功能已接上 Firebase，GitHub Pages 已上線。
 
@@ -7,7 +7,7 @@ Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配
 - 本機路徑：D:/Codex-Projects/lumens-halloween；Local checkout。
 - GitHub：https://github.com/isaaceating/lumens-halloween
 - Firebase Project ID：lumens-halloween-2026；Firestore 位於 asia-east1。
-- 已實作主辦密碼登入、三位參賽者編輯與影音上傳、工號資格核對、一人一票、暫停凍結倒數、手動結束與公布結果。
+- 已實作主辦密碼登入、四位參賽者編輯與影音上傳、工號資格核對、每人兩票、暫停凍結倒數、手動結束與公布結果。
 - Functions／Storage 已部署並驗證；GitHub Pages 正式網址：https://isaaceating.github.io/lumens-halloween/ 。發布狀態以 docs/project-status.md 為準。
 
 ## 本機開發
@@ -24,13 +24,13 @@ Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配
 
 本機狀態與照片保存在 private/，重新啟動仍保留。它們不會自動上傳至 Firebase。不可把 private/、密碼、秘密金鑰或員工名單提交至 Git。
 
-版本標記：Git tag `v1.22`，前端 `1.22.0`、相容 API `1.14.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
+版本標記：Git tag `v1.23`，前端與 API `1.23.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
 
 ## 功能規則
 
 - 預設 2026/10/30 15:00（台灣時間），30 分鐘，截止自動計算。
 - 主辦可提前開始、暫停、恢復及結束；暫停會凍結剩餘時間。
-- 工號資格核對，不加額外投票碼；每工號最多一票，不能改票。工號本身無法證明投票者本人。
+- 工號資格核對，不加額外投票碼；每工號必須選兩位不同選手，一次送出兩票，不能改票。工號本身無法證明投票者本人。
 - 每位支援 1 支影片（60 秒／200 MB 內）與 2 張照片，影片預設為封面；既有純照片最多 3 張會保留。後台轉成 H.264/AAC MP4 並產生封面，也可手動更換封面。
 - 輸入工號後由後端帶出該筆部門與中文姓名，確認本人後投票；不提供名單列表。
 - 公布前以變裝名稱及介紹展示，選手姓名在公布結果後顯示；主辦後台仍可管理完整姓名。
