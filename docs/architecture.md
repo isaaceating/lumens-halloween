@@ -169,3 +169,6 @@ network.js requestJson 以 AbortController + Promise.race 包住 fetch 和 JSON 
 
 ## v1.23.2 · Hero 傳輸修正（2026-10-29）
 hero-manifest.js 記錄 12 張公開無損 WebP 的 SHA-256、位元組數與 Firebase Storage 不可變 URL（hero/<sha>/<name>）。下載 token 僅公開既有插畫，非管理憑證。hero-assets.js 四路串流 fetch，15 秒無資料或 180 秒總上限才 abort；自動依序切換 Firebase、Pages 雜湊版本、Firebase recovery URL。每項先檢查大小／雜湊再 decode 成 blob URL，共用於 HTML、SVG 與背景，不發出重複原圖請求。進度包含下載位元組及 decode，100% 才啟用喚醒；已完成素材逐項顯示並保留於頁面快取。字型最多等待 2.5 秒後使用暫時 fallback，原字型繼續載入。
+
+## v1.23.3 · Q90 素材（2026-10-29）
+使用者已核准全 Hero Q90 demo。assets/ 下 12 張 WebP 改為核准副本，原檔完整保存 assets/lossless/（原 PNG 同樣保留）。build 既有白名單不遞迴，因此不把無損備份帶入站點；目前 PNG 仍依原規則打包，但 Hero 不載入它們。scripts/optimize-assets.cjs 從無損 WebP 編碼 Q90／compression_level 6；hero-quality.json 記錄來源與核准副本 SHA／尺寸。測試驗證原 PNG 可見像素與無損備份一致、Q90 尺寸／alpha 不變及精確符合核准雜湊。12 張新 CDN 路徑更新 manifest，舊 URL 不刪除，演出程式無變更。

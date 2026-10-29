@@ -1,0 +1,92 @@
+{
+  "quality": 90,
+  "compressionLevel": 6,
+  "originalTotal": 11801436,
+  "runtimeTotal": 3350428,
+  "assets": [
+    {
+      "file": "castle-title-blank.webp",
+      "width": 1706,
+      "height": 922,
+      "originalSha": "113aae7f3f4d305870729f938fafa6b0eb1524e6fbd9ae1974dcf7e325ecb36c",
+      "approvedSha": "51383d1e36b876bac660b2979ce65cdde425321204c9681b05a4c2f3ec3e28af"
+    },
+    {
+      "file": "lumens-castle-v6.webp",
+      "width": 1536,
+      "height": 1024,
+      "originalSha": "7b0e5165c97dd84be84e082e52c2a0a68c2f777a5af33a5893db5e54e04961f7",
+      "approvedSha": "f77136613d4b2247705f0a35b9cb481d83798f7e8926085b1b415b66c14caadf"
+    },
+    {
+      "file": "ghost-dormant.webp",
+      "width": 1254,
+      "height": 1254,
+      "originalSha": "1aaa7ba47b2ffd089cb3f68361d66c2e53d53384e21c7ff928485ea7fb3833cf",
+      "approvedSha": "b3977545fe22c7e61d728bbb7886f81856bc7b6a5c9ee417aaa204f143d8c7da"
+    },
+    {
+      "file": "friendly-ghost-v5.webp",
+      "width": 1254,
+      "height": 1254,
+      "originalSha": "fedb1d9b5baae44c91d5099906c3f9ea6d8050d6a6bc9a35e97879080646f32a",
+      "approvedSha": "101790ae09c2a66ce128e9070042423d52e381ac6d0474248bc55319e6fd2232"
+    },
+    {
+      "file": "slender-cat.webp",
+      "width": 1254,
+      "height": 1254,
+      "originalSha": "bfba20b4d4414245cb690bb5b61dfb4481c3056b6bce7a13955ff9d9833657ea",
+      "approvedSha": "85a245153b8d07d57653e73bb1caf24913ca7af84fc0a3ca0a355d1aa968f479"
+    },
+    {
+      "file": "evil-pumpkin-lantern.webp",
+      "width": 1312,
+      "height": 1199,
+      "originalSha": "fb357c57d8d63b58a1b453eeb3bfe86be9ff34655d0ea736595073631ad96fae",
+      "approvedSha": "9c677f176c25bfb1f4050b58e231fd8218110291b699dfb2e906d1fe8dc1cc98"
+    },
+    {
+      "file": "witch-casting-front.webp",
+      "width": 1536,
+      "height": 1024,
+      "originalSha": "b71a5795596a7b90cf845714cfd92aeb3e64f3590781cb58af1925a3ef52d239",
+      "approvedSha": "72adf33c4fcb29692137d32ba3049f9113d3f638c8a079c34c94af263ad46de4"
+    },
+    {
+      "file": "sprite-witch.webp",
+      "width": 645,
+      "height": 455,
+      "originalSha": "65736fbe172a2434624403b7eb780796752680d6847a8749b466264e8c1dae13",
+      "approvedSha": "f7c1f11cfd3a478864d4aefec636c62393d1ec603be204eacfdbb85e804a1d82"
+    },
+    {
+      "file": "sprite-cat-awake.webp",
+      "width": 360,
+      "height": 415,
+      "originalSha": "610fbe0ae13c3ac2fd2c22c8e1ad3521f8b59fba636f46cbbaaa386b3f7204b4",
+      "approvedSha": "c51d8109de62aad06af74720f820f608d72017a59ac20d1db37cb2122113840a"
+    },
+    {
+      "file": "sprite-pumpkin.webp",
+      "width": 615,
+      "height": 525,
+      "originalSha": "e9bda9d58eb3e6015a3abc1a1dd933da552abe128eac6d82cc718d5fc3a663a9",
+      "approvedSha": "5c81839736d4a1c2a26ac53922d146c3039223342dba496d4b4a7e6fdd6f2714"
+    },
+    {
+      "file": "sprite-skeleton.webp",
+      "width": 420,
+      "height": 535,
+      "originalSha": "f90de3f5a0a915ec7e1afe704024b101d7d47102ebfc48cc11ebe9b9a6a4acf9",
+      "approvedSha": "f7b929b827bff780bb7269aab81500bb1f62c922aa9af39cc71da0f8cecf726a"
+    },
+    {
+      "file": "sprite-cat-asleep.webp",
+      "width": 410,
+      "height": 420,
+      "originalSha": "dbfdb3d40c62d2b12fd80a182c9acecd6280df783d070259ad7566f453a3b857",
+      "approvedSha": "24873429b6c710ac3ce1136a705bce88df91c5ca1b796fea774de6c94d338a5a"
+    }
+  ]
+}

@@ -74,3 +74,6 @@
 
 ## 公開 Hero 插畫來源（v1.23.2）
 12 張原品質插畫同步至既有 Storage bucket 的 hero/<SHA-256>/，不可變快取一年。不要覆寫同一雜湊路徑；更換素材時上傳新雜湊並同步 hero-manifest.js，測試會檢查本機 bytes／SHA 一致。Pages 仍保有完整備援圖片。Bucket CORS 追加正式 Pages origin 及本機 http://127.0.0.1:4198 的 GET／HEAD（只暴露 Content-Type、Content-Length、ETag），未修改讀寫規則或 ACL。其他本機 port 可走 Pages 本機素材備援。此 CDN 設定與員工名單、選手影音權限分離。
+
+### v1.23.3 Q90
+新 Q90 素材已放至新的 hero/<SHA-256>/ 不可變路徑，舊無損物件／下載 URL 保留。更新 hero-manifest.js 的大小與 SHA，不能覆寫舊路徑；僅發布 Pages，API 維持 1.23.0。

@@ -1,4 +1,4 @@
-# Lumens Halloween · v1.23.2
+# Lumens Halloween · v1.23.3
 
 Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配 Firebase 後端；正式功能已接上 Firebase，GitHub Pages 已上線。
 
@@ -24,7 +24,7 @@ Whimsical Halloween 變裝展示與公司工號投票網站。靜態前端搭配
 
 本機狀態與照片保存在 private/，重新啟動仍保留。它們不會自動上傳至 Firebase。不可把 private/、密碼、秘密金鑰或員工名單提交至 Git。
 
-版本標記：Git tag `v1.23.1`，前端 `1.23.1`、API `1.23.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
+版本標記：Git tag `v1.23.3`，前端 `1.23.3`、API `1.23.0`；發布紀錄見 [CHANGELOG](CHANGELOG.md)。
 
 ## 功能規則
 
@@ -57,3 +57,5 @@ assets/ 包含使用者提供的原始 Lumens Logo，以及以它和古堡風格
 - [現況](docs/project-status.md)
 - [部署與活動操作](docs/deployment.md)
 - [交接](docs/handoffs/README.md)
+
+Hero 圖片：正式使用 Q90 WebP；無損 WebP 保存於 assets/lossless/，原始 PNG 亦保留。node scripts/optimize-assets.cjs 從無損檔重建 Q90；scripts/hero-quality.json 記錄已核准副本的雜湊／尺寸，變更後需重新驗收並更新 CDN manifest。
