@@ -62,9 +62,9 @@ test('imports require admin and cannot change a started event',async()=>{
 });
 test('v1.24 frontend keeps the compatible v1.23.4 API',()=>{
   const fs=require('node:fs');
-  assert.equal(require('../package.json').version,'1.24.0');
+  assert.equal(require('../package.json').version,'1.24.1');
   assert.equal(require('../functions/package.json').version,'1.23.4');
   assert.equal(require('../functions/package-lock.json').packages[''].version,'1.23.4');
-  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.24"/);
+  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.24\.1"/);
   assert.equal(C.publicView(C.initial(),1000).apiVersion,'1.23.4');
 });
