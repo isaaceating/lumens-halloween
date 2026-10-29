@@ -157,3 +157,6 @@ awakening.js 分出 pumpkinSpec／pumpkinPosition 純函式；SVG 後、中景�
 pumpkinSpec 以低差異序列配置不同落點，pumpkinPosition 使用線性水平速度加有界漂移與原拋物線，不再共用邊緣壓縮。移除避臉驗收（使用者明確取消），保留邊界與落點分散測試。
 witchReturnPose 將淡出末秒以二次進度接上巡航 3200–3700ms，結束時 CSS 時間設定 3700ms；桌面／手機沿各自 keyframe 路徑，位置與一階速度連續。SVG attr helper 只寫入變動值；原 show clock、可視性暫停及特效保留。
 live.js 以 published AND ended 作得獎顯示條件；頂部 award-header／名次獎牌與增強框線，結果文字依狀態更新及恢復。只改前端，API 相容 1.14.0。
+
+## v1.22（2026-10-29）
+pumpkinPosition 改依 Hero 寬高與塔尖螢幕座標計算，前景置於 Hero 獨立 pointer-events:none SVG，後中景轉回場景座標保持 Luna 前後層次。42 顆採低差異落點、錯開色調及發射時刻；CSS hue/saturation 與 SVG 寬高輪廓共用原始無損圖，不增加下載。姓名票數移入 award-header 的 award-identity，結果資料閘門不變。API 維持 1.14.0。

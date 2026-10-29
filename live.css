@@ -68,3 +68,5 @@
 .cards .winner-card .contestant-name{font-size:23px;font-weight:700;margin:14px 0 7px}.cards .winner-card .result-count{font-size:32px;font-weight:800;margin:0}
 @media(max-width:650px){.cards .winner-card .award-ribbon{font-size:23px}}
 .award-header{width:calc(100% + 34px);height:auto;justify-content:flex-start;flex-wrap:nowrap}
+
+.award-copy{flex:1;min-width:0}.award-identity{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:10px}.cards .award-identity .contestant-name{font-size:24px;margin:0;overflow-wrap:anywhere}.cards .award-identity .result-count{font-size:28px;margin:0;white-space:nowrap}.award-header .award-medal{flex-shrink:0;align-self:flex-start;margin-top:6px}

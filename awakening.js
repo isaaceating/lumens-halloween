@@ -5,20 +5,24 @@ function castleShowTiming(actualTime){
  const actor=t<1000?1500+t*.5:t<2000?2000+(t-1000)*1.5:t<flightStart?3500:t<arrival?3500+t-flightStart:t<chargeStart?5000:t<6250?5000+(t-chargeStart)*2:6000+t-6250;
  return {actor,lighting:t<2000?actor:3500+t-2000,flightStart,arrival,turnStart,chargeStart,turnProgress:Math.max(0,Math.min(1,(t-turnStart)/(chargeStart-turnStart))),showEnd,total};
 }
-// Independent landing positions preserve natural overlap without a shared edge clamp.
+// Hero-relative flight space: no face or copy exclusion zones.
+const PUMPKIN_COUNT=42;
 function pumpkinSpec(i){
- const depth=i%2===0?'front':i%3===0?'middle':'back',k=Math.floor(i/2),factor=depth==='middle'?1:.78;
- const size=depth==='front'?76+(i%5)*14:(40+(i%6)*12)*factor;
- const right=depth==='front'?k%2===1:i%4<2,landing=right?35+Math.floor((i*.61803398875%1)*230):-(80+(i*71%340));
- return {depth,size,delay:i*.05,vx:landing/3.5,sway:8+(i*7%13),phase:i*2.399,vy:depth==='front'?-105-(k*31%90):(-90-(i%5)*16)*factor,gravity:depth==='front'?100+(k*7%25):depth==='middle'?95:82,spin:((depth==='front'?k:i)%2?1:-1)*(20+i%4*12)};
+ const depth=i%2===0?'front':i%3===0?'middle':'back',variant=Math.floor((i*.41421356237%1)*4);
+ return {depth,variant,size:depth==='front'?78+(i*17%70):36+(i*13%48),stretch:[1,1.22,.78,1.08][variant],hue:[0,265,70,15][variant],saturation:variant===3?.38:1,delay:i*(1.45/(PUMPKIN_COUNT-1)),landing:.05+((i*.61803398875+.17)%1)*.9,sway:.012+(i%4)*.004,phase:i*2.399,vy:-.08-(i*11%17)/100,spin:(i%3?1:-1)*(20+i%4*12)};
 }
-function pumpkinPosition(p,age){return {x:1050+p.vx*age+p.sway*Math.sin(age*1.7+p.phase)*Math.sin(Math.PI*age/3.5),y:30+p.vy*age+p.gravity*age*age};}
+function pumpkinPosition(p,age,{width=1500,height=1024,originX=1050,originY=30}={}){
+ const t=Math.max(0,Math.min(1,age/3.5)),spread=1-Math.pow(1-t,2.1);
+ const x=originX+(p.landing*width-originX)*spread+p.sway*width*Math.sin(age*1.7+p.phase)*Math.sin(Math.PI*t);
+ const launch=p.vy-Math.max(0,originY/height)*1.05,gravity=(1.15-originY/height-launch*3.5)/12.25;
+ return {x,y:originY+height*(launch*age+gravity*age*age)};
+}
 function witchReturnPose(t,mobile=false){
  const u=Math.max(0,Math.min(1,(t-11700)/1000)),p=u*u*(3-2*u);
  const handoff=Math.max(0,Math.min(1,(t-12700)/1000)),travel=500*handoff*handoff,q=travel/2400;
  return {x:1050-250*p+(mobile?360:410)*q,y:280-95*p+(mobile?25:20)*q,scale:1.4-.1*p-.05*q,rotation:mobile?0:2*q,cycleTime:3200+travel};
 }
-if(typeof module==='object'&&module.exports)module.exports={castleShowTiming,pumpkinSpec,pumpkinPosition,witchReturnPose};
+if(typeof module==='object'&&module.exports)module.exports={castleShowTiming,pumpkinSpec,pumpkinPosition,witchReturnPose,PUMPKIN_COUNT};
 else (() => {
  const hero=document.querySelector('.hero'),stage=document.querySelector('.inhabitants>svg'),button=document.querySelector('#castSpell'),root=document.documentElement;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)'),ns='http://www.w3.org/2000/svg';
@@ -32,7 +36,8 @@ else (() => {
  const witch=stage.querySelector('.witch-flight'),heading=stage.querySelector('.witch-heading');
  const bursts={back:make('g',{'class':'pumpkin-burst pumpkin-back','aria-hidden':'true'}),middle:make('g',{'class':'pumpkin-burst pumpkin-middle','aria-hidden':'true'}),front:make('g',{'class':'pumpkin-burst pumpkin-front','aria-hidden':'true'})};
  stage.insertBefore(layer,witch);stage.insertBefore(bursts.back,witch);stage.insertBefore(bursts.middle,witch);stage.insertBefore(bursts.front,witch.nextSibling);
- const pumpkins=Array.from({length:30},(_,i)=>{const p=pumpkinSpec(i);return {...p,e:make('image',{href:'assets/evil-pumpkin-lantern.webp',x:-p.size/2,y:-p.size/2,width:p.size,height:p.size,opacity:0},bursts[p.depth])};});
+ const foreground=make('svg',{'class':'hero-pumpkin-foreground','aria-hidden':'true'},hero);foreground.append(bursts.front);
+ const pumpkins=Array.from({length:PUMPKIN_COUNT},(_,i)=>{const p=pumpkinSpec(i);return {...p,e:make('image',{href:'assets/evil-pumpkin-lantern.webp',x:-p.size*p.stretch/2,y:-p.size/p.stretch/2,width:p.size*p.stretch,height:p.size/p.stretch,preserveAspectRatio:'none',opacity:0,style:`filter:hue-rotate(${p.hue}deg) saturate(${p.saturation})`},bursts[p.depth])};});
  const witchAnimations=[...witch.getAnimations(),...heading.getAnimations()];
  const front=make('image',{href:'assets/witch-casting-front.webp',x:-161.69,y:-126.73,width:323.38,height:244.72,opacity:0,'class':'witch-front','aria-hidden':'true'},witch);
  const trail=make('path',{d:'M-80 65 Q-200 100 -330 70 M-100 85 Q-220 130 -370 110',fill:'none',stroke:'#e8aa78','stroke-width':9,'stroke-linecap':'round',opacity:0,'class':'witch-spell-trail'},witch);witch.insertBefore(trail,witch.firstChild);
@@ -72,7 +77,8 @@ else (() => {
   if(actualTime>=frontChargeStart&&time<6800){const peak=point(1050,30),p=smooth((time-6000)/500);const cast={x:mix(palm.x,peak.x,p),y:mix(palm.y,peak.y,p)-Math.sin(p*Math.PI)*35};orb.style.transform=`translate3d(${cast.x-hr.left}px,${cast.y-hr.top}px,0) translate(-50%,-50%) scale(var(--orb-scale,1))`;orb.style.opacity=String(1-smooth((time-6500)/300));if(time>=6000){orb.style.opacity=0;const local=new DOMPoint(cast.x,cast.y).matrixTransform(inverse),tail=new DOMPoint(mix(palm.x,peak.x,Math.max(0,p-.22)),mix(palm.y,peak.y,Math.max(0,p-.22))).matrixTransform(inverse);attr(castingPumpkin,'transform',`translate(${local.x} ${local.y}) rotate(${p*30})`);attr(castingPumpkin,'opacity',1-smooth((time-6500)/300));attr(pumpkinTrail,'d',`M${tail.x} ${tail.y} L${local.x} ${local.y}`);attr(pumpkinTrail,'opacity',.65*(1-smooth((time-6500)/300)))}}
   const level=smooth((lightTime-3500)/650)*fade;const pulse=Math.sin(Math.PI*clamp((lightTime-3500)/800))*.35;const power=level*(1+pulse);hero.style.setProperty('--wake-level',level);hero.style.setProperty('--wake-power',power);hero.style.setProperty('--resident-energy',power);hero.style.setProperty('--cat-form',smooth((lightTime-4000)/1500)*fade);if(lightTime>=3500){hero.classList.add('castle-awake');revealParty()}
   lamps.forEach((c,i)=>attr(c,'opacity',smooth((lightTime-3500-i*100)/500)*fade*1.25));attr(road,'opacity',power*1.15);attr(tip,'opacity',smooth((time-6400)/400)*fade);
-  pumpkins.forEach(p=>{const {e,delay,spin}=p,age=(time-6500)/1000-delay;if(age<0||age>3.5){attr(e,'opacity',0);return}const {x:px,y:py}=pumpkinPosition(p,age);attr(e,'transform',`translate(${px} ${py}) rotate(${spin*age})`);attr(e,'opacity',smooth(age/.2)*(1-smooth((age-2.4)/1.1))) });
+  const burstOrigin=point(1050,30),burstSpace={width:hr.width,height:hr.height,originX:burstOrigin.x-hr.left,originY:burstOrigin.y-hr.top},sizeScale=Math.max(.55,Math.min(1.25,hr.width/1500));
+  pumpkins.forEach(p=>{const {e,delay,spin}=p,age=(time-6500)/1000-delay;if(age<0||age>3.5){attr(e,'opacity',0);return}const {x:px,y:py}=pumpkinPosition(p,age,burstSpace),local=p.depth==='front'?{x:px,y:py}:new DOMPoint(px+hr.left,py+hr.top).matrixTransform(inverse);attr(e,'transform',`translate(${local.x} ${local.y}) rotate(${spin*age}) scale(${p.depth==='front'?sizeScale:sizeScale/stageMatrix.a})`);attr(e,'opacity',smooth(age/.2)*(1-smooth((age-2.4)/1.1))) });
   if(lightTime>nextSpark){nextSpark=lightTime+170;if(time>1500&&time<2000)spark(hand.x,hand.y);else if(lightTime>3500&&lightTime<4500){const q=point(1060+(Math.random()-.5)*150,710);spark(q.x,q.y)}}
 
  }
