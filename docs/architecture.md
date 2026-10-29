@@ -166,3 +166,6 @@ network.js requestJson 以 AbortController + Promise.race 包住 fetch 和 JSON 
 
 ## v1.23（2026-10-29）
 選票改為每個工號雜湊鍵下的 candidateIds 二元素陣列；同一次 Firestore transaction 完整驗證與保存，generation 阻擋重設前舊請求。統計相容舊 candidateId，但新投票 API 拒絕舊單票請求。admin totalVotes 保留投票人數語意（RESET 樂觀鎖），totalSelections 新增實際選票數。RESET 補齊缺少的第四候選人，不改動既有候選人、影音與資格名單。公開前台以 Set 選擇兩人，確認列與原身份核對視窗一次送出；後台只渲染被選取的編輯表單。
+
+## v1.23.2 · Hero 傳輸修正（2026-10-29）
+hero-manifest.js 記錄 12 張公開無損 WebP 的 SHA-256、位元組數與 Firebase Storage 不可變 URL（hero/<sha>/<name>）。下載 token 僅公開既有插畫，非管理憑證。hero-assets.js 四路串流 fetch，15 秒無資料或 180 秒總上限才 abort；自動依序切換 Firebase、Pages 雜湊版本、Firebase recovery URL。每項先檢查大小／雜湊再 decode 成 blob URL，共用於 HTML、SVG 與背景，不發出重複原圖請求。進度包含下載位元組及 decode，100% 才啟用喚醒；已完成素材逐項顯示並保留於頁面快取。字型最多等待 2.5 秒後使用暫時 fallback，原字型繼續載入。

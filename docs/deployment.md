@@ -71,3 +71,6 @@
 ## v1.23 兩票版本（2026-10-29）
 前端及 Functions 同為 1.23.0。先部署 Functions，再以原排程 RESET 補齊第四位待發布選手並清除測試票，最後發布 Pages。RESET 保存候選人與影音、資格名單，增加 generation；舊前端單票請求會被拒絕並提示重新整理。使用者已授權本次正式測試票清除。後續正式活動開始後不可任意 RESET。
 活動驗收使用隔離資料；正式環境只檢查排程、資料保留、公開結果隱藏及版本，不以真實工號投測試票。第四位需在後台補齊資料與影音並發布。
+
+## 公開 Hero 插畫來源（v1.23.2）
+12 張原品質插畫同步至既有 Storage bucket 的 hero/<SHA-256>/，不可變快取一年。不要覆寫同一雜湊路徑；更換素材時上傳新雜湊並同步 hero-manifest.js，測試會檢查本機 bytes／SHA 一致。Pages 仍保有完整備援圖片。Bucket CORS 追加正式 Pages origin 及本機 http://127.0.0.1:4198 的 GET／HEAD（只暴露 Content-Type、Content-Length、ETag），未修改讀寫規則或 ACL。其他本機 port 可走 Pages 本機素材備援。此 CDN 設定與員工名單、選手影音權限分離。

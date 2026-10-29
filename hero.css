@@ -1,5 +1,5 @@
 /* One viewport, one continuous illustrated world. All scene layers share 3:2. */
-.hero{height:100svh;min-height:0;max-height:1100px;padding:0 5%;isolation:isolate;background:#15121e url('assets/lumens-castle-v6.webp') center/cover no-repeat;display:flex;align-items:center}
+.hero{height:100svh;min-height:0;max-height:1100px;padding:0 5%;isolation:isolate;background:#15121e var(--hero-background,none) center/cover no-repeat;display:flex;align-items:center}
 .hero:before{z-index:1;background:linear-gradient(90deg,#100d19e8, #100d1999 25%,transparent 55%);pointer-events:none}
 .castle-scene{top:50%!important;left:auto!important;right:0!important;width:min(100vw,150svh);max-width:none;height:auto!important;transform:translateY(-50%)!important;transition:none}
 .castle-art{filter:saturate(.83)}
@@ -240,3 +240,6 @@ html:not(.hero-ready) body .hero *,html:not(.hero-ready) body .hero *::before,ht
 .pumpkin-burst{pointer-events:none}
 
 .hero-pumpkin-foreground{position:absolute;inset:0;width:100%;height:100%;z-index:9;overflow:hidden;pointer-events:none}
+
+.hero img[data-src]:not([src]){visibility:hidden}
+#heroLoadDetail{display:block;font-size:11px;color:#e5cba9;margin-top:5px;line-height:1.5}

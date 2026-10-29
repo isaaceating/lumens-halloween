@@ -60,11 +60,11 @@ test('imports require admin and cannot change a started event',async()=>{
   await assert.rejects(send({ids:['003']}));
   assert.equal((await store.get(C.EVENT)).employees.length,2);
 });
-test('v1.23.1 frontend keeps the compatible v1.23 API',()=>{
+test('v1.23.2 frontend keeps the compatible v1.23 API',()=>{
   const fs=require('node:fs');
-  assert.equal(require('../package.json').version,'1.23.1');
+  assert.equal(require('../package.json').version,'1.23.2');
   assert.equal(require('../functions/package.json').version,'1.23.0');
   assert.equal(require('../functions/package-lock.json').packages[''].version,'1.23.0');
-  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.23\.1"/);
+  assert.match(fs.readFileSync('site-config.js','utf8'),/version:"v1\.23\.2"/);
   assert.equal(C.publicView(C.initial(),1000).apiVersion,'1.23.0');
 });
