@@ -3,7 +3,7 @@ const crypto=require('node:crypto'),fs=require('node:fs/promises'),os=require('n
 const CHUNK=2*1024*1024,MAX=200*1024*1024;
 function createVideoService({store,files,convert=require('./transcode.cjs').transcode,now=Date.now}){
  return async function video(action,b){
-  if(action==='init'){const s=await store.get(C.EVENT)||C.initial();C.assert(C.clock(s,now()).status==='scheduled','影片僅能於活動開始前上傳');C.assert(s.candidates.some(c=>c.id===b.candidateId),'無此參賽者');C.assert(Number.isInteger(b.size)&&b.size>0&&b.size<=MAX,'影片須小於 200 MB');const id=crypto.randomUUID();await store.transaction(async tx=>tx.set('media-jobs/'+id,{candidateId:b.candidateId,size:b.size,parts:{},status:'uploading',expiresAt:now()+86400000}));return {id,chunkSize:CHUNK};}
+  if(action==='init'){const s=await store.get(C.EVENT)||C.initial();C.assert(s.candidates.some(c=>c.id===b.candidateId),'無此參賽者');C.assert(Number.isInteger(b.size)&&b.size>0&&b.size<=MAX,'影片須小於 200 MB');const id=crypto.randomUUID();await store.transaction(async tx=>tx.set('media-jobs/'+id,{candidateId:b.candidateId,size:b.size,parts:{},status:'uploading',expiresAt:now()+86400000}));return {id,chunkSize:CHUNK};}
   C.assert(typeof b.id==='string'&&/^[a-f0-9-]{36}$/.test(b.id),'影片編號不正確');const key='media-jobs/'+b.id,job=await store.get(key);C.assert(job,'找不到影片',404);
   if(action==='status')return {status:job.status,video:job.video||null,error:job.error||''};
   C.assert(job.expiresAt>now(),'上傳已過期，請重新選擇影片',409);

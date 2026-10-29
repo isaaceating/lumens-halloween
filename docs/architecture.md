@@ -172,3 +172,6 @@ hero-manifest.js 記錄 12 張公開無損 WebP 的 SHA-256、位元組數與 Fi
 
 ## v1.23.3 · Q90 素材（2026-10-29）
 使用者已核准全 Hero Q90 demo。assets/ 下 12 張 WebP 改為核准副本，原檔完整保存 assets/lossless/（原 PNG 同樣保留）。build 既有白名單不遞迴，因此不把無損備份帶入站點；目前 PNG 仍依原規則打包，但 Hero 不載入它們。scripts/optimize-assets.cjs 從無損 WebP 編碼 Q90／compression_level 6；hero-quality.json 記錄來源與核准副本 SHA／尺寸。測試驗證原 PNG 可見像素與無損備份一致、Q90 尺寸／alpha 不變及精確符合核准雜湊。12 張新 CDN 路徑更新 manifest，舊 URL 不刪除，演出程式無變更。
+
+## v1.23.4 · 選手編輯與媒體解耦
+admin/candidate 移除 scheduled gate 與 active 必須有 photo 的條件，video/init 移除階段 gate；admin.js 選手欄位／影音控制獨立於時間與名單的 editable。core 與 live 投票可用性一致只檢查 active（另保留活動時間／兩票等規則），不依 photo。公開空媒體卡片沿用 placeholder，其他公開資料與姓名揭露規則不變。

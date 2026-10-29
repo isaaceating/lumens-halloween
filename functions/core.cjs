@@ -12,7 +12,7 @@ function employeeId(value){const id=String(value??'').trim().normalize('NFKC').t
 const keyFor=(secret,scope,value)=>crypto.createHmac('sha256',secret).update(`${scope}:${value}`).digest('hex');
 function passwordHash(password){const salt=crypto.randomBytes(16).toString('hex');return `${salt}:${crypto.scryptSync(password,salt,64).toString('hex')}`;}
 function verifyPassword(password,hash){const [salt,key]=String(hash).split(':');if(!salt||!key||typeof password!=='string'||password.length>200)return false;const expected=Buffer.from(key,'hex'),actual=crypto.scryptSync(password,salt,64);return expected.length===actual.length&&crypto.timingSafeEqual(actual,expected);}
-function control(s,action,now){const c=clock(s,now);assert(!s.published,'結果已公布，活動已鎖定');switch(action){case 'start':assert(c.status==='scheduled','只能提前開始尚未開始的活動');assert(s.employees.length&&s.candidates.filter(c=>c.active&&c.photo).length>=2,'請先匯入工號，並至少發布兩位有照片的參賽者');s.mode='running';s.startedAt=now;s.endsAt=now+s.durationMs;break;case 'pause':assert(c.status==='running','目前不是投票中');s.mode='paused';s.remainingMs=c.remainingMs;s.endsAt=null;break;case 'resume':assert(c.status==='paused','目前不是暫停中');s.mode='running';s.endsAt=now+s.remainingMs;break;case 'end':assert(c.status!=='ended','活動已結束');s.mode='ended';s.endsAt=now;s.remainingMs=0;break;case 'publish':throw new Fault(400,'請使用公布結果操作');default:throw new Fault(400,'不支援的操作');}s.revision++;return s;}
+function control(s,action,now){const c=clock(s,now);assert(!s.published,'結果已公布，活動已鎖定');switch(action){case 'start':assert(c.status==='scheduled','只能提前開始尚未開始的活動');assert(s.employees.length&&s.candidates.filter(c=>c.active).length>=2,'請先匯入工號，並至少發布兩位參賽者');s.mode='running';s.startedAt=now;s.endsAt=now+s.durationMs;break;case 'pause':assert(c.status==='running','目前不是投票中');s.mode='paused';s.remainingMs=c.remainingMs;s.endsAt=null;break;case 'resume':assert(c.status==='paused','目前不是暫停中');s.mode='running';s.endsAt=now+s.remainingMs;break;case 'end':assert(c.status!=='ended','活動已結束');s.mode='ended';s.endsAt=now;s.remainingMs=0;break;case 'publish':throw new Fault(400,'請使用公布結果操作');default:throw new Fault(400,'不支援的操作');}s.revision++;return s;}
 function settings(s,b,now){assert(clock(s,now).status==='scheduled'&&!Object.keys(s.votes).length,'時間僅能在活動開始前修改');const at=Number(b.scheduledAt),minutes=Number(b.durationMinutes);assert(Number.isFinite(at)&&at>now,'開始時間必須晚於現在');assert(Number.isInteger(minutes)&&minutes>=1&&minutes<=1440,'投票時長須為 1–1440 分鐘');s.scheduledAt=at;s.durationMs=minutes*60000;s.remainingMs=s.durationMs;s.revision++;return s;}
 function vote(s,b,secret,now){
  assert(Array.isArray(b.candidateIds)&&b.candidateIds.length===2&&new Set(b.candidateIds).size===2,'請重新整理網頁，選擇兩位不同選手後一次送出',400);
@@ -20,7 +20,7 @@ function vote(s,b,secret,now){
  assert(clock(s,now).status==='running','目前尚未開放投票或投票已停止',409);
  const id=keyFor(secret,'employee',employeeId(b.employeeId));assert(s.employees.includes(id),'工號不在本次投票資格名單',403);
  assert(!s.votes[id],'此工號已投票，無法重複投票或改票',409);
- const ids=b.candidateIds.map(id=>{const c=s.candidates.find(c=>c.id===id);assert(c?.active&&c.photo,'此參賽者尚未開放投票',409);return c.id;});
+ const ids=b.candidateIds.map(id=>{const c=s.candidates.find(c=>c.id===id);assert(c?.active,'此參賽者尚未開放投票',409);return c.id;});
  s.votes[id]={candidateIds:ids,at:now};return s;
 }
 
