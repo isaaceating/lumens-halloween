@@ -1,0 +1,21 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+function setup(preference){
+ const win=new EventTarget(),doc=new EventTarget(),button=new EventTarget(),audios=[];let video=false;
+ button.setAttribute=()=>{};const status={textContent:''};
+ doc.body={append(){}};doc.hidden=false;doc.querySelector=s=>s==='#musicToggle'?button:s==='#musicStatus'?status:s.startsWith('video')?(video?{}:null):{};
+ doc.querySelectorAll=()=>video?[{paused:false,ended:false}]:[];
+ class Audio extends EventTarget{constructor(src){super();this.src=src;this.paused=true;this.currentTime=0;this.readyState=4;audios.push(this)}play(){this.paused=false;return Promise.resolve()}pause(){this.paused=true}load(){this.loaded=true}}
+ win.SceneMotion={heroActive:true};win.HeroAssets={ready:false};
+ vm.runInNewContext(fs.readFileSync('sound.js','utf8'),{window:win,document:doc,Audio,sessionStorage:{getItem:()=>preference,setItem(){}},MutationObserver:class{observe(){}},setTimeout,clearTimeout,requestAnimationFrame:()=>1,cancelAnimationFrame(){},performance});
+ return {win,doc,button,audios,status,emit:n=>win.dispatchEvent(new Event(n)),video:value=>{video=value;const e=new Event(value?'play':'pause');Object.defineProperty(e,'target',{value:{tagName:'VIDEO'}});doc.dispatchEvent(e)}};
+}
+test('no initial playback or audio loading in Hero critical path',()=>{const s=setup();assert.ok(s.audios.every(a=>a.paused&&a.preload==='none'));s.win.HeroAssets.ready=true;s.emit('scene-motion-change');assert.ok(s.audios.every(a=>a.loaded));assert.equal(s.audios[0].paused,false);assert.equal(s.audios[1].paused,true);});
+test('awakening continues after visuals and only ended returns to looping background',()=>{const s=setup(),[bg,show]=s.audios;s.emit('castle-show-start');assert.equal(show.paused,false);assert.equal(bg.paused,true);s.emit('castle-show-end');assert.equal(show.paused,false);show.dispatchEvent(new Event('ended'));assert.equal(bg.paused,false);assert.equal(bg.loop,true);assert.equal(show.paused,true);});
+test('replay restarts single show track; mute persists through replay',()=>{const s=setup(),[bg,show]=s.audios;s.emit('castle-show-start');show.currentTime=8;s.emit('castle-show-start');assert.equal(show.currentTime,0);s.button.dispatchEvent(new Event('click'));s.emit('castle-show-start');assert.ok(bg.paused&&show.paused);});
+test('hidden tab, scene pause and contestant video suspend then resume music',()=>{const s=setup(),[,show]=s.audios;s.emit('castle-show-start');s.doc.hidden=true;s.doc.dispatchEvent(new Event('visibilitychange'));assert.ok(show.paused);s.doc.hidden=false;s.doc.dispatchEvent(new Event('visibilitychange'));assert.equal(show.paused,false);s.win.SceneMotion.heroActive=false;s.emit('scene-motion-change');assert.ok(show.paused);s.win.SceneMotion.heroActive=true;s.emit('scene-motion-change');s.video(true);assert.ok(show.paused);s.video(false);assert.equal(show.paused,false);});
+test('music defaults on even after an old saved mute; disabling before awakening is respected',()=>{const s=setup('off');assert.equal(s.button.textContent,'♫ 關閉音樂');s.button.dispatchEvent(new Event('click'));s.emit('castle-show-start');assert.ok(s.audios.every(a=>a.paused));s.button.dispatchEvent(new Event('click'));assert.equal(s.audios[1].paused,false);});
+
+test('autoplay rejection exposes enable action and first page gesture retries background',async()=>{const s=setup();const bg=s.audios[0];let denied=true;bg.play=()=>{if(denied){const e=new Error('gesture required');e.name='NotAllowedError';return Promise.reject(e)}bg.paused=false;return Promise.resolve()};s.win.HeroAssets.ready=true;s.emit('scene-motion-change');await Promise.resolve();await Promise.resolve();assert.equal(s.button.textContent,'♫ 點擊啟用音樂');assert.ok(bg.paused);denied=false;s.doc.dispatchEvent(new Event('click'));await Promise.resolve();assert.equal(bg.paused,false);assert.equal(s.button.textContent,'♫ 關閉音樂');});
+
+
+test('awakening uses steady gain from start and replay rather than a lighting crescendo',()=>{const s=setup(),show=s.audios[1];s.emit('castle-show-start');assert.equal(show.volume,.7);s.emit('castle-show-end');assert.equal(show.volume,.7);s.emit('castle-show-start');assert.equal(show.volume,.7);});

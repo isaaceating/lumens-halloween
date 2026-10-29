@@ -21,7 +21,7 @@ test('corrupt content and failed decode cannot be marked ready; allocated URL is
 test('incomplete response rejected and stalled font server cannot block images',async()=>{await assert.rejects(fetchHeroBytes('asset',{fetchImpl:async()=>new Response(Uint8Array.of(1)),expectedSize:2}),/不完整/);await waitForHeroFonts({ready:new Promise(()=>{})},5);});
 test('immutable manifest matches full-quality local assets and is shipped with the site',()=>{
  const sandbox={window:{}};vm.runInNewContext(fs.readFileSync('hero-manifest.js','utf8'),sandbox);const manifest=sandbox.window.HERO_ASSET_MANIFEST;
- assert.equal(Object.keys(manifest).length,12);
- for(const [file,entry] of Object.entries(manifest)){const bytes=fs.readFileSync(file);assert.equal(bytes.length,entry.size);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),entry.sha);assert.ok(entry.url.includes(entry.sha));}
+ assert.equal(Object.keys(manifest).length,13);
+ for(const [file,entry] of Object.entries(manifest)){const bytes=fs.readFileSync(file);assert.equal(bytes.length,entry.size);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),entry.sha);if(file==='assets/cute-pumpkin.webp'){assert.equal(entry.url,undefined);}else{assert.ok(entry.url.includes(entry.sha));}}
  const html=fs.readFileSync('index.html','utf8');assert.ok(html.indexOf('src="hero-manifest.js"')<html.indexOf('src="hero-assets.js"'));assert.ok(!html.includes('rel="preload" as="image"'));assert.ok(fs.readFileSync('scripts/build.cjs','utf8').includes("'hero-manifest.js'"));
 });

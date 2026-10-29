@@ -175,3 +175,20 @@ hero-manifest.js 記錄 12 張公開無損 WebP 的 SHA-256、位元組數與 Fi
 
 ## v1.23.4 · 選手編輯與媒體解耦
 admin/candidate 移除 scheduled gate 與 active 必須有 photo 的條件，video/init 移除階段 gate；admin.js 選手欄位／影音控制獨立於時間與名單的 editable。core 與 live 投票可用性一致只檢查 active（另保留活動時間／兩票等規則），不依 photo。公開空媒體卡片沿用 placeholder，其他公開資料與姓名揭露規則不變。
+
+## 2026-10-30 · 音樂預覽
+sound.js 管理兩個 HTMLAudioElement；awakening.js 僅新增開始／結束事件，不更動演出時計。Hero ready 後才預載音訊，先嘗試自動播放背景，被瀏覽器拒絕時使用者手勢啟播；ended 切回背景，generation 防止非同步播放回應覆蓋新狀態。音樂不參與圖片進度，失敗提示不阻擋頁面。兩個 192 kbps 裁切 MP3 共 1,191,271 bytes，原始完整歌曲留在使用者 Downloads。建置與本機伺服器白名單支援 MP3；不將完整音樂打包。
+
+### 筆電南瓜安全軌跡（2026-10-30）
+pumpkinPosition 接受 fitTop／sizeScale。以圖像矩形半對角線涵蓋旋轉輪廓，加 12px 邊距；受限起點向下留足輪廓空間，再解析限制上拋速度，同時重算重力以保留 3.5 秒落下時間與終點。只在 innerWidth>800 使用；水平公式不變，手機不經修正分支。
+
+### 可愛南瓜素材（2026-10-30）
+assets/cute-pumpkin.webp 為內建 imagegen 生成透明 PNG 的 Q90 WebP；無損源保留 assets/lossless/cute-pumpkin.png。新素材 384256 bytes，Hero manifest 新增本機大小與 SHA，沒有 CDN URL；參與完整下載與解碼進度，共 13 項 Hero 素材。正式部署時需再確認素材 CDN 策略。pumpkinSpec.size 乘 0.8，安全邊距使用實際新尺寸計算。
+
+音量對點：awakening render 發出 castle-show-progress elapsed；sound.js 使用同一演出時計的 smoothstep 0–2000ms 控制音量，避免獨立計時器在暫停後錯位。背景音樂維持原淡入；喚醒取消原 450ms 通用淡入，重播重設至 0.12。
+
+2026-10-30 修訂：上述音量對點並非使用者意圖，已移除 castle-show-progress 與漸強控制。改由原始音檔裁切 7.3–29 秒使人聲提前 0.3 秒，sound.js 喚醒音量固定 0.7。
+
+2026-10-30 修訂：撤回 7.3／7.6 秒起點的裁切試驗；恢復 7–29 秒原片段，編碼時在前面加入 500ms 靜音。與音樂共用播放／暫停時計，不新增瀏覽器延時計時器，仍在點擊手勢內呼叫 play，避免延後呼叫遭自動播放限制。總檔長 22.5 秒，其中音樂 22 秒；動畫程式無修改。
+
+2026-10-30 最新音訊設定：移除上述 500ms 靜音，原曲裁切 7.1–29 秒／21.9 秒；不新增播放計時器或修改動畫。

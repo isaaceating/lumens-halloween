@@ -9,13 +9,23 @@ function castleShowTiming(actualTime){
 const PUMPKIN_COUNT=42;
 function pumpkinSpec(i){
  const depth=i%2===0?'front':i%3===0?'middle':'back',variant=Math.floor((i*.41421356237%1)*4);
- return {depth,variant,size:depth==='front'?78+(i*17%70):36+(i*13%48),stretch:[1,1.22,.78,1.08][variant],hue:[0,265,70,15][variant],saturation:variant===3?.38:1,delay:i*(1.45/(PUMPKIN_COUNT-1)),landing:.05+((i*.61803398875+.17)%1)*.9,sway:.012+(i%4)*.004,phase:i*2.399,vy:-.08-(i*11%17)/100,spin:(i%3?1:-1)*(20+i%4*12)};
+ const accent=depth==='front'?i%14===12:i%3===1;const hue=accent?[265,70,15][Math.floor(i/3)%3]:0;
+ return {depth,variant,size:.8*(depth==='front'?78+(i*17%70):36+(i*13%48)),stretch:[1,1.22,.78,1.08][variant],hue,saturation:accent&&hue===15?.38:1,delay:i*(1.45/(PUMPKIN_COUNT-1)),landing:.05+((i*.61803398875+.17)%1)*.9,sway:.012+(i%4)*.004,phase:i*2.399,vy:-.08-(i*11%17)/100,spin:(i%3?1:-1)*(20+i%4*12)};
 }
-function pumpkinPosition(p,age,{width=1500,height=1024,originX=1050,originY=30}={}){
+function pumpkinPosition(p,age,{width=1500,height=1024,originX=1050,originY=30,fitTop=false,sizeScale=1}={}){
  const t=Math.max(0,Math.min(1,age/3.5)),spread=1-Math.pow(1-t,2.1);
  const x=originX+(p.landing*width-originX)*spread+p.sway*width*Math.sin(age*1.7+p.phase)*Math.sin(Math.PI*t);
  const launch=p.vy-Math.max(0,originY/height)*1.05,gravity=(1.15-originY/height-launch*3.5)/12.25;
- return {x,y:originY+height*(launch*age+gravity*age*age)};
+ if(!fitTop)return {x,y:originY+height*(launch*age+gravity*age*age)};
+ // Bound the entire rotating sprite, not only its centre. When the tower is
+ // too close to the edge, its visible eruption opens just beneath the tip.
+ const clearance=Math.hypot(p.size*p.stretch,p.size/p.stretch)*sizeScale/2+12;
+ const start=Math.max(originY,clearance),room=Math.max(0,start-clearance),distance=height*1.15-start;
+ // Solve the maximum upward velocity whose apex stays inside the safe area.
+ // Keep the same 3.5-second flight, horizontal spread and landing height.
+ const limit=2*(room+Math.sqrt(room*(room+Math.max(0,distance))))/3.5;
+ const velocity=Math.max(height*launch,-limit),acceleration=(distance-velocity*3.5)/12.25;
+ return {x,y:start+velocity*age+acceleration*age*age};
 }
 function witchReturnPose(t,mobile=false){
  const u=Math.max(0,Math.min(1,(t-11700)/1000)),p=u*u*(3-2*u);
@@ -37,7 +47,7 @@ else (() => {
  const bursts={back:make('g',{'class':'pumpkin-burst pumpkin-back','aria-hidden':'true'}),middle:make('g',{'class':'pumpkin-burst pumpkin-middle','aria-hidden':'true'}),front:make('g',{'class':'pumpkin-burst pumpkin-front','aria-hidden':'true'})};
  stage.insertBefore(layer,witch);stage.insertBefore(bursts.back,witch);stage.insertBefore(bursts.middle,witch);stage.insertBefore(bursts.front,witch.nextSibling);
  const foreground=make('svg',{'class':'hero-pumpkin-foreground','aria-hidden':'true'},hero);foreground.append(bursts.front);
- const pumpkins=Array.from({length:PUMPKIN_COUNT},(_,i)=>{const p=pumpkinSpec(i);return {...p,e:make('image',{href:'assets/evil-pumpkin-lantern.webp',x:-p.size*p.stretch/2,y:-p.size/p.stretch/2,width:p.size*p.stretch,height:p.size/p.stretch,preserveAspectRatio:'none',opacity:0,style:`filter:hue-rotate(${p.hue}deg) saturate(${p.saturation})`},bursts[p.depth])};});
+ const pumpkins=Array.from({length:PUMPKIN_COUNT},(_,i)=>{const p=pumpkinSpec(i);return {...p,e:make('image',{href:'assets/cute-pumpkin.webp',x:-p.size*p.stretch/2,y:-p.size/p.stretch/2,width:p.size*p.stretch,height:p.size/p.stretch,preserveAspectRatio:'none',opacity:0,style:`filter:hue-rotate(${p.hue}deg) saturate(${p.saturation})`},bursts[p.depth])};});
  const witchAnimations=[...witch.getAnimations(),...heading.getAnimations()];
  const front=make('image',{href:'assets/witch-casting-front.webp',x:-161.69,y:-126.73,width:323.38,height:244.72,opacity:0,'class':'witch-front','aria-hidden':'true'},witch);
  const trail=make('path',{d:'M-80 65 Q-200 100 -330 70 M-100 85 Q-220 130 -370 110',fill:'none',stroke:'#e8aa78','stroke-width':9,'stroke-linecap':'round',opacity:0,'class':'witch-spell-trail'},witch);witch.insertBefore(trail,witch.firstChild);
@@ -51,7 +61,7 @@ else (() => {
  const point=(x,y)=>new DOMPoint(x,y).matrixTransform(stageMatrix);
  const spark=(x,y)=>window.dispatchEvent(new CustomEvent('hero-magic',{detail:{x,y}}));
  function revealParty(){if(root.classList.contains('castle-entered'))return;root.classList.add('castle-entered');try{sessionStorage.setItem('lumens-party-entered','1')}catch{}window.dispatchEvent(new Event('party-entered'))}
- function finish(){running=false;cancelAnimationFrame(raf);hero.classList.remove('awakening');hero.classList.remove('castle-awake');hero.style.setProperty('--cat-form',0);hero.style.setProperty('--wake-level',0);hero.style.removeProperty('--wake-power');hero.style.removeProperty('--resident-energy');delete hero.dataset.awakeningTime;for(const e of [witch,heading])for(const p of ['transform','opacity'])e.style.removeProperty(p);witchAnimations.forEach(a=>{a.currentTime=witchReturnPose(castleShowTiming(elapsed).total).cycleTime});attr(front,'opacity',0);attr(trail,'opacity',0);orb.style.opacity=0;orb.style.setProperty('--orb-scale','1');attr(castingPumpkin,'opacity',0);attr(pumpkinTrail,'opacity',0);motes.forEach(e=>attr(e,'opacity',0));lamps.forEach(c=>attr(c,'opacity',0));attr(road,'opacity',0);attr(tip,'opacity',0);pumpkins.forEach(p=>attr(p.e,'opacity',0));button.disabled=false;button.textContent='喚醒古堡，派對開場';dialogue(null)}
+ function finish(){window.dispatchEvent(new Event('castle-show-end'));running=false;cancelAnimationFrame(raf);hero.classList.remove('awakening');hero.classList.remove('castle-awake');hero.style.setProperty('--cat-form',0);hero.style.setProperty('--wake-level',0);hero.style.removeProperty('--wake-power');hero.style.removeProperty('--resident-energy');delete hero.dataset.awakeningTime;for(const e of [witch,heading])for(const p of ['transform','opacity'])e.style.removeProperty(p);witchAnimations.forEach(a=>{a.currentTime=witchReturnPose(castleShowTiming(elapsed).total).cycleTime});attr(front,'opacity',0);attr(trail,'opacity',0);orb.style.opacity=0;orb.style.setProperty('--orb-scale','1');attr(castingPumpkin,'opacity',0);attr(pumpkinTrail,'opacity',0);motes.forEach(e=>attr(e,'opacity',0));lamps.forEach(c=>attr(c,'opacity',0));attr(road,'opacity',0);attr(tip,'opacity',0);pumpkins.forEach(p=>attr(p.e,'opacity',0));button.disabled=false;button.textContent='喚醒古堡，派對開場';dialogue(null)}
  function render(actualTime){
   const {actor:time,lighting:lightTime,flightStart,showEnd,chargeStart:frontChargeStart,turnProgress}=castleShowTiming(actualTime);
   stageMatrix=stage.getScreenCTM();const inverse=stageMatrix.inverse(),hr=hero.getBoundingClientRect();
@@ -77,13 +87,13 @@ else (() => {
   if(actualTime>=frontChargeStart&&time<6800){const peak=point(1050,30),p=smooth((time-6000)/500);const cast={x:mix(palm.x,peak.x,p),y:mix(palm.y,peak.y,p)-Math.sin(p*Math.PI)*35};orb.style.transform=`translate3d(${cast.x-hr.left}px,${cast.y-hr.top}px,0) translate(-50%,-50%) scale(var(--orb-scale,1))`;orb.style.opacity=String(1-smooth((time-6500)/300));if(time>=6000){orb.style.opacity=0;const local=new DOMPoint(cast.x,cast.y).matrixTransform(inverse),tail=new DOMPoint(mix(palm.x,peak.x,Math.max(0,p-.22)),mix(palm.y,peak.y,Math.max(0,p-.22))).matrixTransform(inverse);attr(castingPumpkin,'transform',`translate(${local.x} ${local.y}) rotate(${p*30})`);attr(castingPumpkin,'opacity',1-smooth((time-6500)/300));attr(pumpkinTrail,'d',`M${tail.x} ${tail.y} L${local.x} ${local.y}`);attr(pumpkinTrail,'opacity',.65*(1-smooth((time-6500)/300)))}}
   const level=smooth((lightTime-3500)/650)*fade;const pulse=Math.sin(Math.PI*clamp((lightTime-3500)/800))*.35;const power=level*(1+pulse);hero.style.setProperty('--wake-level',level);hero.style.setProperty('--wake-power',power);hero.style.setProperty('--resident-energy',power);hero.style.setProperty('--cat-form',smooth((lightTime-4000)/1500)*fade);if(lightTime>=3500){hero.classList.add('castle-awake');revealParty()}
   lamps.forEach((c,i)=>attr(c,'opacity',smooth((lightTime-3500-i*100)/500)*fade*1.25));attr(road,'opacity',power*1.15);attr(tip,'opacity',smooth((time-6400)/400)*fade);
-  const burstOrigin=point(1050,30),burstSpace={width:hr.width,height:hr.height,originX:burstOrigin.x-hr.left,originY:burstOrigin.y-hr.top},sizeScale=Math.max(.55,Math.min(1.25,hr.width/1500));
+  const burstOrigin=point(1050,30),sizeScale=Math.max(.55,Math.min(1.25,hr.width/1500)),burstSpace={width:hr.width,height:hr.height,originX:burstOrigin.x-hr.left,originY:burstOrigin.y-hr.top,fitTop:innerWidth>800,sizeScale};
   pumpkins.forEach(p=>{const {e,delay,spin}=p,age=(time-6500)/1000-delay;if(age<0||age>3.5){attr(e,'opacity',0);return}const {x:px,y:py}=pumpkinPosition(p,age,burstSpace),local=p.depth==='front'?{x:px,y:py}:new DOMPoint(px+hr.left,py+hr.top).matrixTransform(inverse);attr(e,'transform',`translate(${local.x} ${local.y}) rotate(${spin*age}) scale(${p.depth==='front'?sizeScale:sizeScale/stageMatrix.a})`);attr(e,'opacity',smooth(age/.2)*(1-smooth((age-2.4)/1.1))) });
   if(lightTime>nextSpark){nextSpark=lightTime+170;if(time>1500&&time<2000)spark(hand.x,hand.y);else if(lightTime>3500&&lightTime<4500){const q=point(1060+(Math.random()-.5)*150,710);spark(q.x,q.y)}}
 
  }
  function frame(now){if(!running)return;const paused=!window.SceneMotion.heroActive;if(paused){raf=0;last=now;return;}if(!paused)elapsed+=Math.min(now-last,100);last=now;hero.dataset.awakeningTime=Math.round(elapsed);if(!paused)render(elapsed);if(elapsed>=castleShowTiming(elapsed).total){finish();return}raf=requestAnimationFrame(frame)}
- function startShow(){if(running||!window.HeroAssets?.ready)return;if(reduced.matches||root.classList.contains('motion-off')){revealParty();finish();return}dialogue(null);running=true;elapsed=0;nextSpark=0;last=performance.now();hero.classList.remove('castle-awake');hero.style.setProperty('--cat-form',0);hero.style.setProperty('--wake-level',0);hero.classList.add('awakening');button.disabled=true;button.textContent='古堡甦醒中…';render(0);raf=requestAnimationFrame(frame)}
+ function startShow(){if(running||!window.HeroAssets?.ready)return;window.dispatchEvent(new Event('castle-show-start'));if(reduced.matches||root.classList.contains('motion-off')){revealParty();finish();return}dialogue(null);running=true;elapsed=0;nextSpark=0;last=performance.now();hero.classList.remove('castle-awake');hero.style.setProperty('--cat-form',0);hero.style.setProperty('--wake-level',0);hero.classList.add('awakening');button.disabled=true;button.textContent='古堡甦醒中…';render(0);raf=requestAnimationFrame(frame)}
  window.addEventListener('scene-motion-change',()=>{if(!running)return;if(!window.SceneMotion.heroActive){cancelAnimationFrame(raf);raf=0;}else if(!raf){last=performance.now();raf=requestAnimationFrame(frame);}});
  button.addEventListener('click',startShow);
  reduced.addEventListener('change',()=>{if(reduced.matches&&running){revealParty();finish()}});
