@@ -420,3 +420,5 @@ Local main，D:/Codex-Projects/lumens-halloween，基底 4a91f2f；來源為本�
 - 12 項副本逐檔沿用已核准 demo，3,350,428 bytes；11,801,436 bytes 的無損 WebP 移存 assets/lossless/ 並以原 SHA 驗證，原 PNG 及雲端無損 URL 保留。新增可重建設定與測試，動畫／API／正式活動資料不改。
 - Q90 新 CDN 物件上傳完成；正式 origin CORS GET 回 206。待全套測試與正式部署驗收。
 - 發布前驗證：check、53/53 tests、build 與 diff whitespace 檢查通過；12 項新 CDN 實際下載之 bytes／SHA／正式 origin CORS 全部一致。
+- v1.23.3 程式 956e848／tag v1.23.3 已推送，Pages 40892882356 成功（含雲端全套測試）。正式 index／manifest／版本設定一致；12 項 Firebase 來源與 12 項 Pages 備援皆下載驗證 SHA 正確。正式瀏覽器首次載入 12/12、3.2 MB、100%，無待載入項目及 console error。
+- 正式瀏覽器驗收完成：首次與重新整理皆 12/12、100%、3.2 MB、無 console error；演出中確認正面 Luna 與 42 顆南瓜顯示，結束回到待機且喚醒可再按，四張正式卡片與投票入口可見。未在正式活動投測試票，沒有修改選手、名單、票數或排程。
